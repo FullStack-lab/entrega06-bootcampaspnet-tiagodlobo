@@ -1,0 +1,195 @@
+﻿@model IEnumerable<SGB_Lobo.Models.Categoria>
+
+@{
+    ViewBag.Title = "Categorias";
+}
+
+<div class="container-fluid">
+    <div class="row mb-3">
+        <div class="col">
+            <h2>Categorias</h2>
+        </div>
+        <div class="col text-end">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCadastroCategoria">
+                <i class="fas fa-plus"></i> Nova Categoria
+            </button>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Livros</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Nome</td>
+                                <td>@(item.Livros?.Count ?? 0)</td>
+                                <td>
+
+                                    <div class="d-flex gap-2">
+                                        <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-link btn-sm">
+                                            <i class="fas fa-edit"></i> Editar
+                                        </a>
+                                        <a href="@Url.Action("Details", new { id = item.Id })" class="btn btn-link btn-sm">
+                                            <i class="fas fa-info-circle"></i> Detalhes
+                                        </a>
+                                        <button type="button" class="btn btn-danger btn-sm rounded-pill" onclick="prepararExclusao(@item.Id, '@item.Nome')">
+                                            <i class="fas fa-trash"></i> Excluir
+                                        </button>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Confirmação de Exclusão -->
+<div class="modal fade" id="modalDelete" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">Confirmar Exclusão</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza que deseja excluir a categoria <strong id="nomeCategoria"></strong>?</p>
+                @using (Html.BeginForm("Delete", "Categorias", FormMethod.Post, new { id = "formDelete" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="categoriaId" name="id" />
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" onclick="confirmarExclusao()">Excluir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Cadastro de Categoria -->
+<div class="modal fade" id="modalCadastroCategoria" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Cadastrar Nova Categoria</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formCadastroCategoria">
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label for="Nome" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="Nome" name="Nome" required />
+                            <div class="invalid-feedback">Por favor, insira o nome da categoria.</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btnSalvarCategoria">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.table').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Portuguese-Brasil.json"
+                }
+            });
+        });
+
+        function prepararExclusao(id, nome) {
+            document.getElementById('categoriaId').value = id;
+            document.getElementById('nomeCategoria').textContent = nome;
+            var modal = new bootstrap.Modal(document.getElementById('modalDelete'));
+            modal.show();
+        }
+
+        function confirmarExclusao() {
+            document.getElementById('formDelete').submit();
+        }
+
+        // Cadastro de Categoria
+        $(document).ready(function () {
+            // Evento de clique para salvar categoria
+            $('#btnSalvarCategoria').on('click', function (event) {
+                // Validar formulário
+                var form = $('#formCadastroCategoria');
+
+                if (form[0].checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    form.addClass('was-validated');
+                    return;
+                }
+
+                // Preparar dados do formulário
+                var formData = {
+                    Nome: $('#Nome').val()
+                };
+
+                console.log('Dados enviados:', formData);
+
+                // Enviar requisição AJAX
+                $.ajax({
+                    url: '/api/categorias',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(formData),
+                    success: function (response) {
+                        console.log('Resposta recebida:', response);
+                        // Mesmo no sucesso, recarregar a página
+                        fecharModalERecarregar();
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Erro completo:', {
+                            status: xhr.status,
+                            responseText: xhr.responseText,
+                            error: error
+                        });
+
+                        // No erro, ainda tentamos fechar o modal e recarregar
+                        fecharModalERecarregar();
+                    }
+                });
+
+                function fecharModalERecarregar() {
+                    // Fechar modal
+                    var modalElement = document.getElementById('modalCadastroCategoria');
+                    var modalInstance = bootstrap.Modal.getInstance(modalElement);
+                    if (modalInstance) {
+                        modalInstance.hide();
+                    }
+
+                    // Limpar formulário
+                    $('#formCadastroCategoria')[0].reset();
+                    $('#formCadastroCategoria').removeClass('was-validated');
+
+                    // Recarregar a página após um pequeno delay para dar tempo de fechar o modal
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 500);
+                }
+            });
+        });
+    </script>
+}

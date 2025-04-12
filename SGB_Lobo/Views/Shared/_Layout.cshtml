@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Biblioteca CODI</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        .header-bg {
+            background-image: url('/Content/Images/biblioCODI.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 150px;
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .header-overlay {
+            background: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 2rem;
+        }
+
+        .header-title {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .home-button {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 0.75rem 1.5rem;
+            border-radius: 30px;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+            .home-button:hover {
+                background-color: white;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                text-decoration: none;
+                color: #333;
+            }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <!-- Header com imagem de fundo -->
+    <div class="header-bg">
+        <div class="header-overlay">
+            <h1 class="header-title">Biblioteca CODI</h1>
+            <div class="d-flex gap-3">
+                <a href="@Url.Action("Index", "Dashboard")" class="home-button">
+                    <i class="fas fa-chart-line"></i>
+                    Painel de Controle
+                </a>
+                <a href="@Url.Action("Index", "Usuario")" class="home-button">
+                    <i class="fas fa-users"></i>
+                    Gerenciar Usuários
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Biblioteca CODI - Bootcamp Zencheck</p>
+        </footer>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,701 @@
+﻿@model IEnumerable<SGB_Lobo.Models.Livro>
+
+@{
+    ViewBag.Title = "Livros";
+}
+
+<div class="container-fluid">
+    <div class="row mb-3">
+        <div class="col">
+            <h2>Livros</h2>
+        </div>
+        <div class="col text-end">
+            <button type="button" class="btn btn-primary" id="btnNovoLivro">
+                <i class="fas fa-plus"></i> Novo Livro
+            </button>
+        </div>
+    </div>
+
+    <!-- Filtros de Busca -->
+    <div class="card mb-3">
+        <div class="card-body">
+            @using (Html.BeginForm("Index", "Livros", FormMethod.Get, new { id = "formBusca" }))
+            {
+                <div class="row g-3 align-items-center">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fas fa-search"></i>
+                            </span>
+                            @Html.TextBox("searchString", ViewBag.SearchString as string, new { @class = "form-control", placeholder = "Buscar por título ou autor..." })
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        @Html.DropDownList("categoriaId",
+                            new SelectList(ViewBag.Categorias, "Value", "Text", ViewBag.CategoriaId),
+                            "Todas as Categorias",
+                            new { @class = "form-select" })
+                    </div>
+
+                    <div class="col-md-3">
+                        @Html.DropDownList("disponibilidade",
+                            new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "Todos os Livros", Value = "" },
+                                new SelectListItem { Text = "Disponíveis", Value = "disponivel", Selected = ViewBag.Disponibilidade == "disponivel" },
+                                new SelectListItem { Text = "Emprestados", Value = "emprestado", Selected = ViewBag.Disponibilidade == "emprestado" }
+                            },
+                            new { @class = "form-select" })
+                    </div>
+
+                    <div class="col-md-2">
+                        <button type="button" id="btnBuscar" class="btn btn-primary me-2" onclick="buscarLivros()">
+                            <i class="fas fa-search"></i> Buscar
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Indicador de carregamento -->
+    <div id="loadingIndicator" class="text-center my-3" style="display:none">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Carregando...</span>
+        </div>
+    </div>
+
+    <!-- Tabela de Livros -->
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="livrosTable" class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Título</th>
+                            <th>Autor</th>
+                            <th>Categoria</th>
+                            <th>Ano Publicação</th>
+                            <th>Disponível</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Titulo</td>
+                                <td>@item.Autor.Nome</td>
+                                <td>@item.Categoria.Nome</td>
+                                <td>@item.AnoPublicacao</td>
+                                <td>
+                                    @if (item.Disponivel)
+                                    {
+                                        <span class="badge bg-success">Sim</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">Não</span>
+                                    }
+                                </td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <button type="button" class="btn btn-link btn-sm" onclick="mostrarEdicao(@item.Id)">
+                                            <i class="fas fa-edit"></i> Editar
+                                        </button>
+                                        <button type="button" class="btn btn-link btn-sm" onclick="mostrarDetalhes(@item.Id)">
+                                            <i class="fas fa-info-circle"></i> Detalhes
+                                        </button>
+                                        <button type="button" class="btn btn-danger btn-sm rounded-pill" onclick="prepararExclusao(@item.Id, '@item.Titulo')">
+                                            <i class="fas fa-trash"></i> Excluir
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Exclusão -->
+<div class="modal fade" id="modalDelete" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">Confirmar Exclusão</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza que deseja excluir o livro <strong id="tituloLivro"></strong>?</p>
+                <input type="hidden" id="livroId" name="id" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" onclick="confirmarExclusao()">Excluir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Criação de Livro -->
+<div class="modal fade" id="modalCreate" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Novo Livro</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formCreateLivro" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="mb-3 row">
+                        @Html.LabelFor(model => model.FirstOrDefault().Titulo, new { @class = "col-sm-2 col-form-label" })
+                        <div class="col-sm-10">
+                            @Html.TextBox("Titulo", "", new { @class = "form-control", required = "required" })
+                            @Html.ValidationMessage("Titulo", "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        @Html.Label("AutorId", "Autor", new { @class = "col-sm-2 col-form-label" })
+                        <div class="col-sm-10">
+                            @Html.DropDownList("AutorId", new SelectList(new List<SelectListItem>()), "Selecione o autor...", new { @class = "form-control", required = "required" })
+                            @Html.ValidationMessage("AutorId", "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        @Html.Label("CategoriaId", "Categoria", new { @class = "col-sm-2 col-form-label" })
+                        <div class="col-sm-10">
+                            @Html.DropDownList("CategoriaId", new SelectList(new List<SelectListItem>()), "Selecione a categoria...", new { @class = "form-control", required = "required" })
+                            @Html.ValidationMessage("CategoriaId", "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        @Html.LabelFor(model => model.FirstOrDefault().AnoPublicacao, new { @class = "col-sm-2 col-form-label" })
+                        <div class="col-sm-10">
+                            @Html.TextBox("AnoPublicacao", "", new { @class = "form-control", type = "number", required = "required" })
+                            @Html.ValidationMessage("AnoPublicacao", "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        @Html.LabelFor(model => model.FirstOrDefault().Disponivel, new { @class = "col-sm-2 col-form-label" })
+                        <div class="col-sm-10">
+                            <div class="form-check mt-2">
+                                @Html.CheckBox("Disponivel", true, new { @class = "form-check-input" })
+                            </div>
+                            @Html.ValidationMessage("Disponivel", "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btnSalvarNovoLivro">Criar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Detalhes do Livro -->
+<div class="modal fade" id="modalDetails" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+                <h5 class="modal-title">Detalhes do Livro</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <dl class="row">
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().Titulo)
+                    </dt>
+                    <dd class="col-sm-10" id="detailsTitulo">
+                    </dd>
+
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().Autor.Nome)
+                    </dt>
+                    <dd class="col-sm-10" id="detailsAutor">
+                    </dd>
+
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().Categoria.Nome)
+                    </dt>
+                    <dd class="col-sm-10" id="detailsCategoria">
+                    </dd>
+
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().AnoPublicacao)
+                    </dt>
+                    <dd class="col-sm-10" id="detailsAnoPublicacao">
+                    </dd>
+
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().Disponivel)
+                    </dt>
+                    <dd class="col-sm-10" id="detailsDisponivel">
+                    </dd>
+                </dl>
+                @Html.Hidden("detailsIdHidden", "")
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary" id="btnEditarDoDetails">Editar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Edição de Livro -->
+<div class="modal fade" id="modalEdit" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-warning text-white">
+                <h5 class="modal-title">Editar Livro</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formEditLivro" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("editId", "")
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="mb-3 row">
+                        @Html.LabelFor(model => model.FirstOrDefault().Titulo, new { @class = "col-sm-2 col-form-label" })
+                        <div class="col-sm-10">
+                            @Html.TextBox("editTitulo", "", new { @class = "form-control", required = "required" })
+                            @Html.ValidationMessage("Titulo", "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        @Html.Label("editAutorId", "Autor", new { @class = "col-sm-2 col-form-label" })
+                        <div class="col-sm-10">
+                            @Html.DropDownList("editAutorId", new SelectList(new List<SelectListItem>()), new { @class = "form-control", required = "required" })
+                            @Html.ValidationMessage("AutorId", "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        @Html.Label("editCategoriaId", "Categoria", new { @class = "col-sm-2 col-form-label" })
+                        <div class="col-sm-10">
+                            @Html.DropDownList("editCategoriaId", new SelectList(new List<SelectListItem>()), new { @class = "form-control", required = "required" })
+                            @Html.ValidationMessage("CategoriaId", "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        @Html.LabelFor(model => model.FirstOrDefault().AnoPublicacao, new { @class = "col-sm-2 col-form-label" })
+                        <div class="col-sm-10">
+                            @Html.TextBox("editAnoPublicacao", "", new { @class = "form-control", type = "number", required = "required" })
+                            @Html.ValidationMessage("AnoPublicacao", "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        @Html.LabelFor(model => model.FirstOrDefault().Disponivel, new { @class = "col-sm-2 col-form-label" })
+                        <div class="col-sm-10">
+                            <div class="form-check mt-2">
+                                @Html.CheckBox("editDisponivel", false, new { @class = "form-check-input" })
+                            </div>
+                            @Html.ValidationMessage("Disponivel", "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btnSalvarEdicaoLivro">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var dataTable;
+
+        $(document).ready(function () {
+            // Inicializar DataTables
+            inicializarDataTable();
+
+            // Interceptar o formulário para busca AJAX
+            $("#btnBuscar").on("click", function () {
+                buscarLivros();
+            });
+
+            // Busca ao mudar os campos (opcional)
+            $("#searchString, #categoriaId, #disponibilidade").on("change", function () {
+                buscarLivros();
+            });
+
+            // Adicionar busca dinâmica enquanto digita com delay
+            var typingTimer;
+            $("#searchString").on("keyup", function () {
+                clearTimeout(typingTimer);
+                typingTimer = setTimeout(buscarLivros, 500);
+            });
+        });
+
+        function buscarLivros() {
+            // Capturar valores explicitamente
+            var searchString = $("#searchString").val();
+            var categoriaId = $("#categoriaId").val();
+            var disponibilidade = $("#disponibilidade").val();
+
+            console.log("Valores capturados:", {
+                searchString: searchString,
+                categoriaId: categoriaId,
+                disponibilidade: disponibilidade
+            });
+
+            $("#loadingIndicator").show(); // Mostrar indicador de carregamento
+
+            $.ajax({
+                url: "/api/livros",
+                type: "GET",
+                data: {
+                    searchString: searchString,
+                    categoriaId: categoriaId ? parseInt(categoriaId) : null,
+                    disponibilidade: disponibilidade
+                },
+                success: function (data) {
+                    console.log("Dados recebidos da API:", data);
+                    $("#loadingIndicator").hide();
+                    atualizarTabelaLivros(data);
+                },
+                error: function (error) {
+                    console.error("Erro ao buscar livros:", error);
+                    $("#loadingIndicator").hide();
+                    alert("Erro ao buscar livros. Verifique o console para mais detalhes.");
+                }
+            });
+        }
+
+        function atualizarTabelaLivros(livros) {
+            // Esconder o indicador de carregamento logo no início
+            $("#loadingIndicator").hide();
+
+            // Destruir o DataTable existente
+            if (dataTable) {
+                dataTable.destroy();
+            }
+
+            // Limpar e reconstruir o corpo da tabela
+            var tbody = $("#livrosTable tbody");
+            tbody.empty();
+
+            if (livros.length === 0) {
+                tbody.append('<tr><td colspan="6" class="text-center">Nenhum livro encontrado.</td></tr>');
+            } else {
+                $.each(livros, function (i, livro) {
+                    var disponibilidadeBadge = livro.disponivel ?
+                        '<span class="badge bg-success">Sim</span>' :
+                        '<span class="badge bg-danger">Não</span>';
+
+                    var row = `
+                        <tr>
+                            <td>${livro.titulo}</td>
+                            <td>${livro.autor}</td>
+                            <td>${livro.categoria}</td>
+                            <td>${livro.anoPublicacao}</td>
+                            <td>${disponibilidadeBadge}</td>
+                            <td>
+                                <div class="d-flex gap-2">
+                                    <button type="button" class="btn btn-link btn-sm" onclick="mostrarEdicao(${livro.id})">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </button>
+                                    <button type="button" class="btn btn-link btn-sm" onclick="mostrarDetalhes(${livro.id})">
+                                        <i class="fas fa-info-circle"></i> Detalhes
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-sm rounded-pill" 
+                                            onclick="prepararExclusao(${livro.id}, '${livro.titulo}')">
+                                        <i class="fas fa-trash"></i> Excluir
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+
+                    tbody.append(row);
+                });
+            }
+
+            // Reinicializar o DataTable
+            inicializarDataTable();
+        }
+
+        function inicializarDataTable() {
+            dataTable = $('#livrosTable').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Portuguese-Brasil.json"
+                },
+                "order": [[0, "asc"]], // Ordena por título
+                "responsive": true
+            });
+        }
+
+        function prepararExclusao(id, titulo) {
+            document.getElementById('livroId').value = id;
+            document.getElementById('tituloLivro').textContent = titulo;
+            var modal = new bootstrap.Modal(document.getElementById('modalDelete'));
+            modal.show();
+        }
+
+        function confirmarExclusao() {
+            var id = document.getElementById('livroId').value;
+
+            $.ajax({
+                url: "/api/livros/" + id,
+                type: "DELETE",
+                success: function () {
+                    // Fechar o modal
+                    var modalEl = document.getElementById('modalDelete');
+                    var modal = bootstrap.Modal.getInstance(modalEl);
+                    modal.hide();
+
+                    // Atualizar a tabela
+                    buscarLivros();
+
+                    // Mensagem de sucesso
+                    alert("Livro excluído com sucesso!");
+                },
+                error: function (error) {
+                    var mensagem = "Erro ao excluir o livro";
+                    if (error.responseJSON && error.responseJSON.Message) {
+                        mensagem += ": " + error.responseJSON.Message;
+                    }
+                    alert(mensagem);
+                }
+            });
+        }
+
+            // Variáveis globais para os modais
+            var modalCreate, modalDetails, modalEdit;
+
+            $(document).ready(function() {
+                // Inicializar modais
+                modalCreate = new bootstrap.Modal(document.getElementById('modalCreate'));
+            modalDetails = new bootstrap.Modal(document.getElementById('modalDetails'));
+            modalEdit = new bootstrap.Modal(document.getElementById('modalEdit'));
+
+            // Carregar listas para dropdowns ao iniciar
+            carregarAutores();
+            carregarCategorias();
+
+            // Configurar botão novo livro
+            $("#btnNovoLivro").click(function() {
+                // Limpar o formulário
+                $("#formCreateLivro")[0].reset();
+            // Mostrar modal
+            modalCreate.show();
+            });
+
+            // Configurar botão salvar novo livro
+            $("#btnSalvarNovoLivro").click(function() {
+                salvarNovoLivro();
+            });
+
+            // Configurar botão editar a partir do modal de detalhes
+            $("#btnEditarDoDetails").click(function() {
+                // Ocultar modal de detalhes
+                modalDetails.hide();
+            // Mostrar modal de edição com o mesmo ID
+            var id = $("#detailsIdHidden").val();
+            mostrarEdicao(id);
+            });
+
+            // Configurar botão salvar edição
+            $("#btnSalvarEdicaoLivro").click(function() {
+                salvarEdicaoLivro();
+            });
+        });
+
+            // Função para carregar autores nos dropdowns
+            function carregarAutores() {
+                $.ajax({
+                    url: "/api/autores",
+                    type: "GET",
+                    success: function (data) {
+                        var options = '<option value="">Selecione o autor...</option>';
+                        $.each(data, function (i, autor) {
+                            options += `<option value="${autor.id}">${autor.nome}</option>`;
+                        });
+                        $("#AutorId, #editAutorId").html(options);
+                    },
+                    error: function (error) {
+                        console.error("Erro ao carregar autores:", error);
+                    }
+                });
+        }
+
+            // Função para carregar categorias nos dropdowns
+            function carregarCategorias() {
+                $.ajax({
+                    url: "/api/categorias",
+                    type: "GET",
+                    success: function (data) {
+                        var options = '<option value="">Selecione a categoria...</option>';
+                        $.each(data, function (i, categoria) {
+                            options += `<option value="${categoria.id}">${categoria.nome}</option>`;
+                        });
+                        $("#CategoriaId, #editCategoriaId").html(options);
+                    },
+                    error: function (error) {
+                        console.error("Erro ao carregar categorias:", error);
+                    }
+                });
+        }
+
+            // Função para mostrar detalhes do livro
+            function mostrarDetalhes(id) {
+                $.ajax({
+                    url: "/api/livros/" + id,
+                    type: "GET",
+                    success: function (livro) {
+                        $("#detailsTitulo").text(livro.titulo);
+                        $("#detailsAutor").text(livro.autor);
+                        $("#detailsCategoria").text(livro.categoria);
+                        $("#detailsAnoPublicacao").text(livro.anoPublicacao);
+
+                        var disponibilidade = livro.disponivel ?
+                            '<span class="badge bg-success">Sim</span>' :
+                            '<span class="badge bg-danger">Não</span>';
+                        $("#detailsDisponivel").html(disponibilidade);
+
+                        // Guardar ID para uso posterior
+                        $("#detailsIdHidden").val(livro.id);
+
+                        modalDetails.show();
+                    },
+                    error: function (error) {
+                        console.error("Erro ao carregar detalhes do livro:", error);
+                        alert("Erro ao carregar detalhes do livro");
+                    }
+                });
+        }
+
+            // Função para mostrar formulário de edição
+            function mostrarEdicao(id) {
+                $.ajax({
+                    url: "/api/livros/" + id,
+                    type: "GET",
+                    success: function (livro) {
+                        $("#editId").val(livro.id);
+                        $("#editTitulo").val(livro.titulo);
+                        $("#editAutorId").val(livro.autorId);
+                        $("#editCategoriaId").val(livro.categoriaId);
+                        $("#editAnoPublicacao").val(livro.anoPublicacao);
+                        $("#editDisponivel").prop("checked", livro.disponivel);
+
+                        modalEdit.show();
+                    },
+                    error: function (error) {
+                        console.error("Erro ao carregar dados do livro:", error);
+                        alert("Erro ao carregar dados do livro");
+                    }
+                });
+        }
+
+           // Função para salvar novo livro
+           function salvarNovoLivro() {
+            // Validar formulário
+            if (!$("#formCreateLivro")[0].checkValidity()) {
+                $("#formCreateLivro")[0].reportValidity();
+                return;
+            }
+
+            var livroData = {
+                Titulo: $("#Titulo").val(),
+                AutorId: parseInt($("#AutorId").val()),
+                CategoriaId: parseInt($("#CategoriaId").val()),
+                AnoPublicacao: parseInt($("#AnoPublicacao").val()),
+                Disponivel: $("#Disponivel").is(":checked")
+            };
+
+            console.log("Dados sendo enviados:", livroData);
+
+            $.ajax({
+                url: "/api/livros/", // Usando a rota alternativa
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(livroData),
+                success: function (response) {
+                    modalCreate.hide();
+                    buscarLivros();
+                    alert("Livro criado com sucesso!");
+                },
+                error: function (error) {
+                    console.error("Erro ao criar livro:", error);
+                    console.error("Status:", error.status);
+                    console.error("StatusText:", error.statusText);
+                    console.error("ResponseText:", error.responseText);
+
+                    alert("Erro ao criar livro. Verifique o console para detalhes.");
+                }
+            });
+        }
+
+            // Função para salvar edição de livro
+            function salvarEdicaoLivro() {
+            // Validar formulário
+            if (!$("#formEditLivro")[0].checkValidity()) {
+                $("#formEditLivro")[0].reportValidity();
+            return;
+            }
+
+            var id = $("#editId").val();
+            var livroData = {
+                Id: id,
+            Titulo: $("#editTitulo").val(),
+            AutorId: $("#editAutorId").val(),
+            CategoriaId: $("#editCategoriaId").val(),
+            AnoPublicacao: $("#editAnoPublicacao").val(),
+            Disponivel: $("#editDisponivel").is(":checked")
+            };
+
+            $.ajax({
+                url: "/api/livros/" + id,
+            type: "PUT",
+            contentType: "application/json",
+            data: JSON.stringify(livroData),
+            success: function() {
+                modalEdit.hide();
+            buscarLivros(); // Atualizar a tabela
+            alert("Livro atualizado com sucesso!");
+                },
+            error: function(error) {
+                console.error("Erro ao atualizar livro:", error);
+
+            // Mostrar erros de validação se houver
+            if (error.responseJSON && error.responseJSON.ModelState) {
+                        var erros = error.responseJSON.ModelState;
+            $.each(erros, function(key, value) {
+                $(`[data-valmsg-for="${key}"]`).text(value[0]);
+                        });
+                    } else {
+                alert("Erro ao atualizar livro");
+                    }
+                }
+            });
+        }
+
+            // Adicionar função para tratar erros AJAX de forma centralizada
+            $(document).ajaxError(function(event, jqxhr, settings, thrownError) {
+                console.error("Erro AJAX global:", thrownError);
+        });
+   
+    </script>
+}

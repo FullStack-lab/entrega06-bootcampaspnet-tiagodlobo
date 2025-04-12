@@ -1,0 +1,249 @@
+﻿@{
+    ViewBag.Title = "Painel de Controle";
+}
+
+<div class="container-fluid">
+    <h2 class="mb-4">Painel de Controle</h2>
+
+    <div class="row">
+        <!-- Card de Livros -->
+        <div class="col-md-6 col-xl-3 mb-4">
+            <div class="card border-left-primary h-100">
+                <div class="card-body">
+                    <div class="content-wrapper">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h4 class="text-primary">Livros</h4>
+                                <div class="h5 mb-0">Total: @ViewBag.TotalLivros</div>
+                                <div class="text-muted small">@ViewBag.LivrosDisponiveis disponíveis</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-book fa-2x text-muted"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-wrapper">
+                        <a href="@Url.Action("Index", "Livros")" class="btn btn-primary btn-block">
+                            Gerenciar Livros
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Card de Autores -->
+        <div class="col-md-6 col-xl-3 mb-4">
+            <div class="card border-left-success h-100">
+                <div class="card-body">
+                    <div class="content-wrapper">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h4 class="text-success">Autores</h4>
+                                <div class="h5 mb-0">Total: @ViewBag.TotalAutores</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-users fa-2x text-muted"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-wrapper">
+                        <a href="@Url.Action("Index", "Autores")" class="btn btn-success btn-block">
+                            Gerenciar Autores
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card de Categorias -->
+        <div class="col-md-6 col-xl-3 mb-4">
+            <div class="card border-left-info h-100">
+                <div class="card-body">
+                    <div class="content-wrapper">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h4 class="text-info">Categorias</h4>
+                                <div class="h5 mb-0">Total: @ViewBag.TotalCategorias</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-tags fa-2x text-muted"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-wrapper">
+                        <a href="@Url.Action("Index", "Categorias")" class="btn btn-info btn-block">
+                            Gerenciar Categorias
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Card de Empréstimos -->
+        <div class="col-md-6 col-xl-3 mb-4">
+            <div class="card border-left-warning h-100">
+                <div class="card-body">
+                    <div class="content-wrapper">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h4 class="text-warning">Empréstimos</h4>
+                                <div class="h5 mb-0">@ViewBag.EmprestimosAtivos ativos</div>
+                                <div class="text-danger small">@ViewBag.EmprestimosAtrasados em atraso</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-book-reader fa-2x text-muted"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-wrapper">
+                        <a href="@Url.Action("Index", "Emprestimos")" class="btn btn-warning btn-block">
+                            Gerenciar Empréstimos
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Relatórios -->
+    <div class="row mt-4">
+        <!-- Livros mais emprestados -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-star text-warning me-2"></i>
+                        5 Livros Mais Emprestados
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Livro</th>
+                                    <th class="text-end">Empréstimos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewBag.LivrosMaisEmprestados)
+                                {
+                                    <tr>
+                                        <td>@item.Titulo</td>
+                                        <td class="text-end">@item.QuantidadeEmprestimos</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Usuários mais ativos -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-users text-info me-2"></i>
+                       5 Usuários Mais Ativos
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Usuário</th>
+                                    <th class="text-end">Empréstimos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewBag.UsuariosMaisAtivos)
+                                {
+                                    <tr>
+                                        <td>@item.Nome</td>
+                                        <td class="text-end">@item.QuantidadeEmprestimos</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Livros por categoria -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-tags text-success me-2"></i>
+                        Livros por Categoria
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Categoria</th>
+                                    <th class="text-end">Quantidade</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewBag.LivrosPorCategoria)
+                                {
+                                    <tr>
+                                        <td>@item.Nome</td>
+                                        <td class="text-end">@item.QuantidadeLivros</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @section Styles {
+        <style>
+            .border-left-primary {
+                border-left: 4px solid #4e73df;
+            }
+
+            .border-left-success {
+                border-left: 4px solid #1cc88a;
+            }
+
+            .border-left-info {
+                border-left: 4px solid #36b9cc;
+            }
+
+            .border-left-warning {
+                border-left: 4px solid #f6c23e;
+            }
+
+            .btn-block {
+                width: 100%;
+            }
+
+            /* Novas classes para alinhamento */
+            .card-body {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+            }
+
+            .content-wrapper {
+                flex: 1 0 auto;
+            }
+
+            .button-wrapper {
+                margin-top: auto;
+            }
+        </style>
+    }

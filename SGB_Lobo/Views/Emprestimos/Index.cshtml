@@ -1,0 +1,540 @@
+﻿@{
+    ViewBag.Title = "Empréstimos";
+}
+
+<div class="container-fluid">
+    <div class="row mb-3">
+        <div class="col">
+            <h2>Empréstimos</h2>
+        </div>
+        <div class="col text-end">
+            <button type="button" class="btn btn-primary" id="btnNovoEmprestimo">
+                <i class="fas fa-plus"></i> Novo Empréstimo
+            </button>
+        </div>
+    </div>
+
+    <!-- Indicador de carregamento -->
+    <div id="loadingIndicator" class="text-center my-3" style="display:none">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Carregando...</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="tabelaEmprestimos" class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Livro</th>
+                            <th>Usuário</th>
+                            <th>Data Empréstimo</th>
+                            <th>Data Prevista</th>
+                            <th>Data Devolução</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Novo Empréstimo -->
+<div class="modal fade" id="modalNovoEmprestimo" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Novo Empréstimo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formNovoEmprestimo">
+                    <div class="mb-3 row">
+                        <label for="LivroId" class="col-sm-2 col-form-label">Livro</label>
+                        <div class="col-sm-10">
+                            <select id="LivroId" name="LivroId" class="form-control" required>
+                                <option value="">Selecione o livro...</option>
+                            </select>
+                            <div class="invalid-feedback" id="LivroIdFeedback"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="UsuarioId" class="col-sm-2 col-form-label">Usuário</label>
+                        <div class="col-sm-10">
+                            <select id="UsuarioId" name="UsuarioId" class="form-control" required>
+                                <option value="">Selecione o usuário...</option>
+                            </select>
+                            <div class="invalid-feedback" id="UsuarioIdFeedback"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="DataPrevistaDevolucao" class="col-sm-2 col-form-label">Data Prevista</label>
+                        <div class="col-sm-10">
+                            <input type="date" id="DataPrevistaDevolucao" name="DataPrevistaDevolucao" class="form-control" required />
+                            <div class="invalid-feedback" id="DataPrevistaDevolucaoFeedback"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btnSalvarEmprestimo">Emprestar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Devolução -->
+<div class="modal fade" id="modalDevolucao" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title">Devolver Livro</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <dl class="row">
+                    <dt class="col-sm-4">Livro</dt>
+                    <dd class="col-sm-8" id="devolucaoLivro"></dd>
+
+                    <dt class="col-sm-4">Usuário</dt>
+                    <dd class="col-sm-8" id="devolucaoUsuario"></dd>
+
+                    <dt class="col-sm-4">Data do Empréstimo</dt>
+                    <dd class="col-sm-8" id="devolucaoDataEmprestimo"></dd>
+
+                    <dt class="col-sm-4">Data Prevista</dt>
+                    <dd class="col-sm-8" id="devolucaoDataPrevista"></dd>
+
+                    <dt class="col-sm-4">Status</dt>
+                    <dd class="col-sm-8" id="devolucaoStatus"></dd>
+                </dl>
+                <input type="hidden" id="devolucaoId" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success" id="btnConfirmarDevolucao">Confirmar Devolução</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Confirmação de Exclusão -->
+<div class="modal fade" id="modalDelete" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">Confirmar Exclusão</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza que deseja excluir o empréstimo do livro <strong id="tituloLivro"></strong>?</p>
+                <p class="text-danger">Esta ação não pode ser desfeita.</p>
+                <input type="hidden" id="emprestimoId" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="btnConfirmarExclusao">Excluir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var dataTable;
+        var modalNovoEmprestimo;
+        var modalDevolucao;
+        var modalDelete;
+
+        $(document).ready(function () {
+            // Inicializar modais
+            modalNovoEmprestimo = new bootstrap.Modal(document.getElementById('modalNovoEmprestimo'));
+            modalDevolucao = new bootstrap.Modal(document.getElementById('modalDevolucao'));
+            modalDelete = new bootstrap.Modal(document.getElementById('modalDelete'));
+
+            // Esconder o indicador de carregamento caso esteja visível
+            $("#loadingIndicator").hide();
+
+            // Carregar dados e inicializar tabela
+            carregarEmprestimos();
+
+            // Configurar botão para novo empréstimo
+            $("#btnNovoEmprestimo").click(function () {
+                prepararNovoEmprestimo();
+            });
+
+            // Configurar botão para salvar empréstimo
+            $("#btnSalvarEmprestimo").click(function () {
+                salvarEmprestimo();
+            });
+
+            // Configurar botão para confirmar devolução
+            $("#btnConfirmarDevolucao").click(function () {
+                confirmarDevolucao();
+            });
+
+            // Configurar botão para confirmar exclusão
+            $("#btnConfirmarExclusao").click(function () {
+                confirmarExclusao();
+            });
+        });
+
+        // Função para carregar todos os empréstimos
+        function carregarEmprestimos() {
+            $("#loadingIndicator").show();
+
+            $.ajax({
+                url: "/api/emprestimos",
+                type: "GET",
+                success: function (data) {
+                    atualizarTabelaEmprestimos(data);
+                },
+                error: function (xhr, status, error) {
+                    console.error("Erro ao carregar empréstimos:", error);
+                    alert("Erro ao carregar empréstimos. Veja o console para mais detalhes.");
+                    $("#loadingIndicator").hide();
+                }
+            });
+        }
+
+        // Função para atualizar a tabela de empréstimos
+        function atualizarTabelaEmprestimos(emprestimos) {
+            // Garantir que o indicador de carregamento esteja visível durante a atualização
+            $("#loadingIndicator").show();
+
+            try {
+                // Destruir o DataTable existente se houver
+                if (dataTable) {
+                    dataTable.destroy();
+                }
+
+                // Limpar e reconstruir o corpo da tabela
+                var tbody = $("#tabelaEmprestimos tbody");
+                tbody.empty();
+
+                if (emprestimos.length === 0) {
+                    tbody.append('<tr><td colspan="7" class="text-center">Nenhum empréstimo encontrado.</td></tr>');
+                } else {
+                    $.each(emprestimos, function (i, emprestimo) {
+                        var statusBadge = "";
+
+                        switch (emprestimo.status) {
+                            case "Em Andamento":
+                                statusBadge = '<span class="badge bg-primary">Em Andamento</span>';
+                                break;
+                            case "Em Atraso":
+                                statusBadge = '<span class="badge bg-danger">Em Atraso</span>';
+                                break;
+                            case "Devolvido no Prazo":
+                                statusBadge = '<span class="badge bg-success">Devolvido no Prazo</span>';
+                                break;
+                            case "Devolvido com Atraso":
+                                statusBadge = '<span class="badge bg-warning">Devolvido com Atraso</span>';
+                                break;
+                        }
+
+                        var acoes = "";
+                        if (!emprestimo.devolvido) {
+                            acoes = `
+                                        <div class="d-flex gap-2">
+                                            <button type="button" class="btn btn-success btn-sm" onclick="prepararDevolucao(${emprestimo.id})">
+                                                <i class="fas fa-check"></i> Devolver
+                                            </button>
+                                            <button type="button" class="btn btn-danger btn-sm rounded-pill" onclick="prepararExclusao(${emprestimo.id}, '${emprestimo.livroTitulo}')">
+                                                <i class="fas fa-trash"></i> Excluir
+                                            </button>
+                                        </div>`;
+                        } else {
+                            acoes = `
+                                        <div class="d-flex gap-2">
+                                            <button type="button" class="btn btn-danger btn-sm rounded-pill" onclick="prepararExclusao(${emprestimo.id}, '${emprestimo.livroTitulo}')">
+                                                <i class="fas fa-trash"></i> Excluir
+                                            </button>
+                                        </div>`;
+                        }
+
+                        var dataDevolucao = emprestimo.dataDevolucao
+                            ? new Date(emprestimo.dataDevolucao).toLocaleDateString('pt-BR')
+                            : "-";
+
+                        var row = `<tr>
+                                        <td>${emprestimo.livroTitulo}</td>
+                                        <td>${emprestimo.usuarioNome}</td>
+                                        <td>${new Date(emprestimo.dataEmprestimo).toLocaleDateString('pt-BR')}</td>
+                                        <td>${new Date(emprestimo.dataPrevistaDevolucao).toLocaleDateString('pt-BR')}</td>
+                                        <td>${dataDevolucao}</td>
+                                        <td>${statusBadge}</td>
+                                        <td>${acoes}</td>
+                                    </tr>`;
+
+                        tbody.append(row);
+                    });
+                }
+
+                // Inicializar o DataTable
+                dataTable = $('#tabelaEmprestimos').DataTable({
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Portuguese-Brasil.json"
+                    },
+                    "order": [[2, "desc"]], // Ordena por data de empréstimo decrescente
+                    "drawCallback": function () {
+                        // Esconder o indicador quando o DataTable terminar de renderizar
+                        $("#loadingIndicator").hide();
+                    }
+                });
+            } catch (error) {
+                console.error("Erro ao atualizar tabela:", error);
+                $("#loadingIndicator").hide();
+            }
+        }
+
+        // Função para preparar o modal de novo empréstimo
+        function prepararNovoEmprestimo() {
+            // Limpar o formulário
+            $("#formNovoEmprestimo")[0].reset();
+
+            // Definir a data prevista padrão (hoje + 7 dias)
+            const dataHoje = new Date();
+            const dataPrevista = new Date(dataHoje);
+            dataPrevista.setDate(dataHoje.getDate() + 7);
+
+            const formattedDate = dataPrevista.toISOString().split('T')[0];
+            $("#DataPrevistaDevolucao").val(formattedDate);
+
+            // Mostrar o indicador de carregamento
+            $("#loadingIndicator").show();
+
+            // Carregar livros disponíveis
+            $.ajax({
+                url: "/api/emprestimos/livros-disponiveis",
+                type: "GET",
+                success: function (livros) {
+                    var options = '<option value="">Selecione o livro...</option>';
+                    $.each(livros, function (i, livro) {
+                        options += `<option value="${livro.id}">${livro.nomeCompleto}</option>`;
+                    });
+                    $("#LivroId").html(options);
+
+                    // Carregar usuários ativos após carregar os livros
+                    carregarUsuariosAtivos();
+                },
+                error: function (xhr, status, error) {
+                    $("#loadingIndicator").hide();
+                    console.error("Erro ao carregar livros disponíveis:", error);
+                    alert("Erro ao carregar livros disponíveis.");
+                }
+            });
+
+            function carregarUsuariosAtivos() {
+                $.ajax({
+                    url: "/api/emprestimos/usuarios-ativos",
+                    type: "GET",
+                    success: function (usuarios) {
+                        var options = '<option value="">Selecione o usuário...</option>';
+                        $.each(usuarios, function (i, usuario) {
+                            options += `<option value="${usuario.id}">${usuario.nomeCompleto}</option>`;
+                        });
+                        $("#UsuarioId").html(options);
+
+                        // Esconder o indicador de carregamento após carregar todos os dados
+                        $("#loadingIndicator").hide();
+
+                        // Mostrar o modal
+                        modalNovoEmprestimo.show();
+                    },
+                    error: function (xhr, status, error) {
+                        $("#loadingIndicator").hide();
+                        console.error("Erro ao carregar usuários ativos:", error);
+                        alert("Erro ao carregar usuários ativos.");
+                    }
+                });
+            }
+        }
+
+        // Função para salvar um novo empréstimo
+        function salvarEmprestimo() {
+            // Validar o formulário
+            var form = $("#formNovoEmprestimo")[0];
+            if (!form.checkValidity()) {
+                form.classList.add("was-validated");
+                return;
+            }
+
+            // Obter a data e hora atual formatada adequadamente para o C#
+            var dataAtual = new Date();
+            var dataFormatada = dataAtual.toISOString();
+
+            // Preparar os dados do empréstimo
+            var emprestimo = {
+                LivroId: $("#LivroId").val(),
+                UsuarioId: $("#UsuarioId").val(),
+                DataPrevistaDevolucao: $("#DataPrevistaDevolucao").val(),
+                DataEmprestimo: dataFormatada
+            };
+
+            // Mostrar o indicador de carregamento
+            $("#loadingIndicator").show();
+
+            // Enviar a requisição para criar o empréstimo
+            $.ajax({
+                url: "/api/emprestimos",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(emprestimo),
+                success: function (result) {
+                    // Fechar o modal antes de recarregar os dados
+                    modalNovoEmprestimo.hide();
+
+                    // Recarregar os empréstimos
+                    carregarEmprestimos();
+
+                    // Mostrar mensagem de sucesso após um pequeno atraso
+                    setTimeout(function () {
+                        alert(result.message);
+                    }, 100);
+                },
+                error: function (xhr, status, error) {
+                    // Esconder o indicador de carregamento em caso de erro
+                    $("#loadingIndicator").hide();
+
+                    console.error("Erro ao criar empréstimo:", xhr.responseText);
+                    if (xhr.responseJSON) {
+                        alert("Erro: " + xhr.responseJSON.Message);
+                    } else {
+                        alert("Erro ao criar empréstimo. Verifique o console para mais detalhes.");
+                    }
+                }
+            });
+        }
+
+        // Função para preparar o modal de devolução
+        function prepararDevolucao(id) {
+            // Mostrar o indicador de carregamento
+            $("#loadingIndicator").show();
+
+            $.ajax({
+                url: `/api/emprestimos/${id}`,
+                type: "GET",
+                success: function (emprestimo) {
+                    $("#devolucaoId").val(emprestimo.id);
+                    $("#devolucaoLivro").text(emprestimo.livroTitulo);
+                    $("#devolucaoUsuario").text(emprestimo.usuarioNome);
+                    $("#devolucaoDataEmprestimo").text(new Date(emprestimo.dataEmprestimo).toLocaleDateString('pt-BR'));
+                    $("#devolucaoDataPrevista").text(new Date(emprestimo.dataPrevistaDevolucao).toLocaleDateString('pt-BR'));
+
+                    var statusHtml = "";
+                    if (emprestimo.emAtraso) {
+                        statusHtml = `<span class="badge bg-danger">Em Atraso</span>
+                                              <small class="text-danger d-block">
+                                                  Atraso de ${emprestimo.diasAtraso} dias
+                                              </small>`;
+                    } else {
+                        statusHtml = '<span class="badge bg-success">No Prazo</span>';
+                    }
+
+                    $("#devolucaoStatus").html(statusHtml);
+
+                    // Esconder o indicador de carregamento
+                    $("#loadingIndicator").hide();
+
+                    // Mostrar o modal
+                    modalDevolucao.show();
+                },
+                error: function (xhr, status, error) {
+                    // Esconder o indicador de carregamento em caso de erro
+                    $("#loadingIndicator").hide();
+
+                    console.error("Erro ao carregar detalhes do empréstimo:", error);
+                    alert("Erro ao carregar detalhes do empréstimo.");
+                }
+            });
+        }
+
+        // Função para confirmar a devolução de um livro
+        function confirmarDevolucao() {
+            var id = $("#devolucaoId").val();
+
+            // Mostrar o indicador de carregamento
+            $("#loadingIndicator").show();
+
+            $.ajax({
+                url: `/api/emprestimos/${id}/devolver`,
+                type: "PUT",
+                success: function (result) {
+                    // Fechar o modal
+                    modalDevolucao.hide();
+
+                    // Recarregar empréstimos
+                    carregarEmprestimos();
+
+                    // Exibir mensagem após pequeno atraso
+                    setTimeout(function () {
+                        alert(result.message);
+                    }, 100);
+                },
+                error: function (xhr, status, error) {
+                    // Esconder o indicador de carregamento em caso de erro
+                    $("#loadingIndicator").hide();
+
+                    console.error("Erro ao devolver livro:", error);
+                    if (xhr.responseJSON) {
+                        alert("Erro: " + xhr.responseJSON.Message);
+                    } else {
+                        alert("Erro ao devolver livro. Verifique o console para mais detalhes.");
+                    }
+                }
+            });
+        }
+
+        // Função para preparar o modal de exclusão
+        function prepararExclusao(id, titulo) {
+            // Preencher os dados no modal de exclusão
+            $("#emprestimoId").val(id);
+            $("#tituloLivro").text(titulo);
+
+            // Mostrar o modal de exclusão
+            modalDelete.show();
+        }
+
+        // Função para confirmar a exclusão do empréstimo
+        function confirmarExclusao() {
+            var id = $("#emprestimoId").val();
+
+            // Mostrar o indicador de carregamento
+            $("#loadingIndicator").show();
+
+            $.ajax({
+                url: `/api/emprestimos/${id}`,
+                type: "DELETE",
+                success: function (result) {
+                    // Fechar o modal
+                    modalDelete.hide();
+
+                    // Recarregar empréstimos
+                    carregarEmprestimos();
+
+                    // Exibir mensagem após pequeno atraso
+                    setTimeout(function () {
+                        alert("Empréstimo excluído com sucesso!");
+                    }, 100);
+                },
+                error: function (xhr, status, error) {
+                    // Esconder o indicador de carregamento em caso de erro
+                    $("#loadingIndicator").hide();
+
+                    console.error("Erro ao excluir empréstimo:", error);
+                    if (xhr.responseJSON) {
+                        alert("Erro: " + xhr.responseJSON.Message);
+                    } else {
+                        alert("Erro ao excluir empréstimo. Verifique o console para mais detalhes.");
+                    }
+                }
+            });
+        }
+    </script>
+}

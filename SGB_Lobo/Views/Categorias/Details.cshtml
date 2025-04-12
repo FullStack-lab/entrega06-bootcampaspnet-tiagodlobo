@@ -1,0 +1,53 @@
+﻿@model SGB_Lobo.Models.Categoria
+
+@{
+    ViewBag.Title = "Detalhes da Categoria";
+}
+
+<div class="container-fluid">
+    <h2>Detalhes da Categoria</h2>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-2">
+                            @Html.DisplayNameFor(model => model.Nome)
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.Nome)
+                        </dd>
+
+                        <dt class="col-sm-2">
+                            Livros nesta Categoria
+                        </dt>
+                        <dd class="col-sm-10">
+                            @if (Model.Livros != null && Model.Livros.Any())
+                            {
+                                <ul class="list-group">
+                                    @foreach (var livro in Model.Livros)
+                                    {
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            @livro.Titulo
+                                            <span class="badge bg-primary">@livro.AnoPublicacao</span>
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <p>Nenhum livro cadastrado nesta categoria.</p>
+                            }
+                        </dd>
+                    </dl>
+                </div>
+                <div class="card-footer">
+                    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-secondary" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
