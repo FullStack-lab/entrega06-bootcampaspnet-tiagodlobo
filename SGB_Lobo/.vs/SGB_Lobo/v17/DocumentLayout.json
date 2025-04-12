@@ -1,153 +1,42 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\",
+  "WorkspaceRootPath": "C:\\DEV\\CODI\\entrega06-bootcampaspnet-tiagodlobo\\SGB_Lobo\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|c:\\dev\\codi\\zencheck\\entrega05-bootcampaspnet-tiagodlobo\\sgb_lobo\\content\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:content\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\views\\emprestimos\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:views\\emprestimos\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\views\\categorias\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:views\\categorias\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\views\\dashboard\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:views\\dashboard\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|c:\\dev\\codi\\zencheck\\entrega05-bootcampaspnet-tiagodlobo\\sgb_lobo\\controllers\\emprestimosapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:controllers\\emprestimosapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\controllers\\categoriasapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:controllers\\categoriasapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\views\\categorias\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:views\\categorias\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\models\\emprestimo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:models\\emprestimo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\controllers\\emprestimoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:controllers\\emprestimoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\controllers\\autoresapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:controllers\\autoresapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\views\\livros\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:views\\livros\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|c:\\dev\\codi\\zencheck\\entrega05-bootcampaspnet-tiagodlobo\\sgb_lobo\\views\\usuario\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:views\\usuario\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|c:\\dev\\codi\\zencheck\\entrega05-bootcampaspnet-tiagodlobo\\sgb_lobo\\controllers\\usuarioapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:controllers\\usuarioapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|c:\\dev\\codi\\zencheck\\entrega05-bootcampaspnet-tiagodlobo\\sgb_lobo\\controllers\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:controllers\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\controllers\\livroscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:controllers\\livroscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\controllers\\livrosapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:controllers\\livrosapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|c:\\dev\\codi\\zencheck\\entrega05-bootcampaspnet-tiagodlobo\\sgb_lobo\\models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\controllers\\autorescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:controllers\\autorescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\views\\autores\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:views\\autores\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\models\\autor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:models\\autor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\global.asax.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|c:\\dev\\codi\\entrega06-bootcampaspnet-tiagodlobo\\sgb_lobo\\global.asax.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:global.asax.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\app_start\\webapiconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:app_start\\webapiconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|c:\\dev\\codi\\entrega06-bootcampaspnet-tiagodlobo\\sgb_lobo\\automapper\\mapperconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:automapper\\mapperconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\controllers\\categoriascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:controllers\\categoriascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|c:\\dev\\codi\\entrega06-bootcampaspnet-tiagodlobo\\sgb_lobo\\automapper\\automapperprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:automapper\\automapperprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|c:\\dev\\codi\\entrega06-bootcampaspnet-tiagodlobo\\sgb_lobo\\models\\viewmodels\\usuarioviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:models\\viewmodels\\usuarioviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\app_start\\routeconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:app_start\\routeconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|c:\\dev\\codi\\entrega06-bootcampaspnet-tiagodlobo\\sgb_lobo\\models\\viewmodels\\emprestimoviewmodel..cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:models\\viewmodels\\emprestimoviewmodel..cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\models\\categoria.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:models\\categoria.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|c:\\dev\\codi\\entrega06-bootcampaspnet-tiagodlobo\\sgb_lobo\\models\\viewmodels\\categoriaviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:models\\viewmodels\\categoriaviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\models\\livro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:models\\livro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|c:\\dev\\codi\\entrega06-bootcampaspnet-tiagodlobo\\sgb_lobo\\models\\viewmodels\\autorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:models\\viewmodels\\autorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\packages.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:packages.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|c:\\dev\\codi\\entrega06-bootcampaspnet-tiagodlobo\\sgb_lobo\\models\\viewmodels\\livroviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:models\\viewmodels\\livroviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\views\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:views\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\tiago\\AppData\\Local\\Temp\\readme.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\views\\autores\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:views\\autores\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\models\\viewmodels\\relatoriosviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|c:\\dev\\codi\\entrega06-bootcampaspnet-tiagodlobo\\sgb_lobo\\models\\viewmodels\\relatoriosviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:models\\viewmodels\\relatoriosviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\models\\context\\bibliotecacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:models\\context\\bibliotecacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\views\\categorias\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:views\\categorias\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\views\\autores\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C994AF19-2046-4019-9D6D-E7CDAC08ACBC}|SGB_Lobo.csproj|solutionrelative:views\\autores\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -157,475 +46,124 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Site.css",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Content\\Site.css",
-              "RelativeDocumentMoniker": "Content\\Site.css",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Content\\Site.css",
-              "RelativeToolTip": "Content\\Site.css",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-03-01T01:49:30.101Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Views\\Emprestimos\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Emprestimos\\Index.cshtml",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Views\\Emprestimos\\Index.cshtml",
-              "RelativeToolTip": "Views\\Emprestimos\\Index.cshtml",
-              "ViewState": "AgIAAK4AAAAAAAAAAAAAAGUAAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-02T21:09:51.471Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Views\\Dashboard\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Dashboard\\Index.cshtml",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Views\\Dashboard\\Index.cshtml",
-              "RelativeToolTip": "Views\\Dashboard\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-02T21:35:16.873Z",
+              "DocumentIndex": 0,
+              "Title": "Global.asax.cs",
+              "DocumentMoniker": "C:\\DEV\\CODI\\entrega06-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Global.asax.cs",
+              "RelativeDocumentMoniker": "Global.asax.cs",
+              "ToolTip": "C:\\DEV\\CODI\\entrega06-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Global.asax.cs",
+              "RelativeToolTip": "Global.asax.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-12T22:56:59.228Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAADkAAAAAAAAAAAAAAAgAAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-02T21:37:04.983Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Web.config",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Web.config",
-              "RelativeDocumentMoniker": "Web.config",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Web.config",
-              "RelativeToolTip": "Web.config",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABQAAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2025-01-27T22:43:48.209Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "EmprestimosApiController.cs",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Controllers\\EmprestimosApiController.cs",
-              "RelativeDocumentMoniker": "Controllers\\EmprestimosApiController.cs",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Controllers\\EmprestimosApiController.cs",
-              "RelativeToolTip": "Controllers\\EmprestimosApiController.cs",
-              "ViewState": "AgIAAKgAAAAAAAAAAAAAwLMAAAANAAAAAAAAAA==",
+              "Title": "MapperConfig.cs",
+              "DocumentMoniker": "C:\\DEV\\CODI\\entrega06-bootcampaspnet-tiagodlobo\\SGB_Lobo\\AutoMapper\\MapperConfig.cs",
+              "RelativeDocumentMoniker": "AutoMapper\\MapperConfig.cs",
+              "ToolTip": "C:\\DEV\\CODI\\entrega06-bootcampaspnet-tiagodlobo\\SGB_Lobo\\AutoMapper\\MapperConfig.cs",
+              "RelativeToolTip": "AutoMapper\\MapperConfig.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-28T22:25:02.525Z",
+              "WhenOpened": "2025-04-12T22:56:31.481Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AutoMapperProfile.cs",
+              "DocumentMoniker": "C:\\DEV\\CODI\\entrega06-bootcampaspnet-tiagodlobo\\SGB_Lobo\\AutoMapper\\AutoMapperProfile.cs",
+              "RelativeDocumentMoniker": "AutoMapper\\AutoMapperProfile.cs",
+              "ToolTip": "C:\\DEV\\CODI\\entrega06-bootcampaspnet-tiagodlobo\\SGB_Lobo\\AutoMapper\\AutoMapperProfile.cs",
+              "RelativeToolTip": "AutoMapper\\AutoMapperProfile.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAgwAcAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-12T22:55:27.145Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UsuarioViewModel.cs",
+              "DocumentMoniker": "C:\\DEV\\CODI\\entrega06-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Models\\ViewModels\\UsuarioViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\ViewModels\\UsuarioViewModel.cs",
+              "ToolTip": "C:\\DEV\\CODI\\entrega06-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Models\\ViewModels\\UsuarioViewModel.cs",
+              "RelativeToolTip": "Models\\ViewModels\\UsuarioViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-12T22:53:55.862Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "Edit.cshtml",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Views\\Categorias\\Edit.cshtml",
-              "RelativeDocumentMoniker": "Views\\Categorias\\Edit.cshtml",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Views\\Categorias\\Edit.cshtml",
-              "RelativeToolTip": "Views\\Categorias\\Edit.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-02T20:55:16.53Z",
+              "Title": "EmprestimoViewModel..cs",
+              "DocumentMoniker": "C:\\DEV\\CODI\\entrega06-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Models\\ViewModels\\EmprestimoViewModel..cs",
+              "RelativeDocumentMoniker": "Models\\ViewModels\\EmprestimoViewModel..cs",
+              "ToolTip": "C:\\DEV\\CODI\\entrega06-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Models\\ViewModels\\EmprestimoViewModel..cs",
+              "RelativeToolTip": "Models\\ViewModels\\EmprestimoViewModel..cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-12T22:53:36.324Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CategoriaViewModel.cs",
+              "DocumentMoniker": "C:\\DEV\\CODI\\entrega06-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Models\\ViewModels\\CategoriaViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\ViewModels\\CategoriaViewModel.cs",
+              "ToolTip": "C:\\DEV\\CODI\\entrega06-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Models\\ViewModels\\CategoriaViewModel.cs",
+              "RelativeToolTip": "Models\\ViewModels\\CategoriaViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-12T22:53:15.803Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "AutorViewModel.cs",
+              "DocumentMoniker": "C:\\DEV\\CODI\\entrega06-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Models\\ViewModels\\AutorViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\ViewModels\\AutorViewModel.cs",
+              "ToolTip": "C:\\DEV\\CODI\\entrega06-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Models\\ViewModels\\AutorViewModel.cs",
+              "RelativeToolTip": "Models\\ViewModels\\AutorViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-12T22:52:55.558Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "CategoriasApiController.cs",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Controllers\\CategoriasApiController.cs",
-              "RelativeDocumentMoniker": "Controllers\\CategoriasApiController.cs",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Controllers\\CategoriasApiController.cs",
-              "RelativeToolTip": "Controllers\\CategoriasApiController.cs",
-              "ViewState": "AgIAAHIAAAAAAAAAAAAgwIAAAAAyAAAAAAAAAA==",
+              "Title": "LivroViewModel.cs",
+              "DocumentMoniker": "C:\\DEV\\CODI\\entrega06-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Models\\ViewModels\\LivroViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\ViewModels\\LivroViewModel.cs",
+              "ToolTip": "C:\\DEV\\CODI\\entrega06-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Models\\ViewModels\\LivroViewModel.cs",
+              "RelativeToolTip": "Models\\ViewModels\\LivroViewModel.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABQAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-27T21:03:06.627Z",
+              "WhenOpened": "2025-04-12T22:52:33.955Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Views\\Categorias\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Categorias\\Index.cshtml",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Views\\Categorias\\Index.cshtml",
-              "RelativeToolTip": "Views\\Categorias\\Index.cshtml",
-              "ViewState": "AgIAAGIAAAAAAAAAAAAAAG0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-02T20:54:06.007Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Emprestimo.cs",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Models\\Emprestimo.cs",
-              "RelativeDocumentMoniker": "Models\\Emprestimo.cs",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Models\\Emprestimo.cs",
-              "RelativeToolTip": "Models\\Emprestimo.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-02T21:20:03.359Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "EmprestimosController.cs",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Controllers\\EmprestimosController.cs",
-              "RelativeDocumentMoniker": "Controllers\\EmprestimosController.cs",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Controllers\\EmprestimosController.cs",
-              "RelativeToolTip": "Controllers\\EmprestimosController.cs",
-              "ViewState": "AgIAAJQAAAAAAAAAAAAAAKMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-02T21:09:09.963Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "AutoresApiController.cs",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Controllers\\AutoresApiController.cs",
-              "RelativeDocumentMoniker": "Controllers\\AutoresApiController.cs",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Controllers\\AutoresApiController.cs",
-              "RelativeToolTip": "Controllers\\AutoresApiController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-27T20:59:47.327Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Views\\Livros\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Livros\\Index.cshtml",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Views\\Livros\\Index.cshtml",
-              "RelativeToolTip": "Views\\Livros\\Index.cshtml",
-              "ViewState": "AgIAAKECAAAAAAAAAAAAALsCAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-01-27T22:33:21.736Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Views\\Usuario\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Usuario\\Index.cshtml",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Views\\Usuario\\Index.cshtml",
-              "RelativeToolTip": "Views\\Usuario\\Index.cshtml",
-              "ViewState": "AgIAAJcAAAAAAAAAAAAAABEBAAA9AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-28T21:36:16.262Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "UsuarioApiController.cs",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Controllers\\UsuarioApiController.cs",
-              "RelativeDocumentMoniker": "Controllers\\UsuarioApiController.cs",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Controllers\\UsuarioApiController.cs",
-              "RelativeToolTip": "Controllers\\UsuarioApiController.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA0AAAA2AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-28T21:34:41.584Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "UsuarioController.cs",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Controllers\\UsuarioController.cs",
-              "RelativeDocumentMoniker": "Controllers\\UsuarioController.cs",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Controllers\\UsuarioController.cs",
-              "RelativeToolTip": "Controllers\\UsuarioController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-28T21:39:58.699Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "Usuario.cs",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Models\\Usuario.cs",
-              "RelativeDocumentMoniker": "Models\\Usuario.cs",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Models\\Usuario.cs",
-              "RelativeToolTip": "Models\\Usuario.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-02T21:19:25.405Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Views\\Autores\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Autores\\Index.cshtml",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Views\\Autores\\Index.cshtml",
-              "RelativeToolTip": "Views\\Autores\\Index.cshtml",
-              "ViewState": "AgIAAK8AAAAAAAAAAAAcwMoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-02T19:47:41.95Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "AutoresController.cs",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Controllers\\AutoresController.cs",
-              "RelativeDocumentMoniker": "Controllers\\AutoresController.cs",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Controllers\\AutoresController.cs",
-              "RelativeToolTip": "Controllers\\AutoresController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-02T19:46:59.767Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "LivrosApiController.cs",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Controllers\\LivrosApiController.cs",
-              "RelativeDocumentMoniker": "Controllers\\LivrosApiController.cs",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Controllers\\LivrosApiController.cs",
-              "RelativeToolTip": "Controllers\\LivrosApiController.cs",
-              "ViewState": "AgIAACgAAAAAAAAAAAAAADAAAAAxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-27T16:09:44.634Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "LivrosController.cs",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Controllers\\LivrosController.cs",
-              "RelativeDocumentMoniker": "Controllers\\LivrosController.cs",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Controllers\\LivrosController.cs",
-              "RelativeToolTip": "Controllers\\LivrosController.cs",
-              "ViewState": "AgIAAIwAAAAAAAAAAAA8wLAAAABLAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-27T22:44:36.194Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{269a02dc-6af8-11d3-bdc4-00c04f688e50}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 31,
-              "Title": "readme.txt",
-              "DocumentMoniker": "C:\\Users\\tiago\\AppData\\Local\\Temp\\readme.txt",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\Users\\tiago\\AppData\\Local\\Temp\\readme.txt",
-              "ToolTip": "C:\\Users\\tiago\\AppData\\Local\\Temp\\readme.txt",
-              "RelativeToolTip": "..\\..\\..\\..\\..\\Users\\tiago\\AppData\\Local\\Temp\\readme.txt",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
-              "WhenOpened": "2025-02-27T16:09:44.727Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "Autor.cs",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Models\\Autor.cs",
-              "RelativeDocumentMoniker": "Models\\Autor.cs",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Models\\Autor.cs",
-              "RelativeToolTip": "Models\\Autor.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-27T22:44:24.654Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "WebApiConfig.cs",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\App_Start\\WebApiConfig.cs",
-              "RelativeDocumentMoniker": "App_Start\\WebApiConfig.cs",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\App_Start\\WebApiConfig.cs",
-              "RelativeToolTip": "App_Start\\WebApiConfig.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-27T21:11:38.273Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "Global.asax.cs",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Global.asax.cs",
-              "RelativeDocumentMoniker": "Global.asax.cs",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Global.asax.cs",
-              "RelativeToolTip": "Global.asax.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-01T14:21:08.684Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "CategoriasController.cs",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Controllers\\CategoriasController.cs",
-              "RelativeDocumentMoniker": "Controllers\\CategoriasController.cs",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Controllers\\CategoriasController.cs",
-              "RelativeToolTip": "Controllers\\CategoriasController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-02T20:53:25.456Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "DashboardController.cs",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Controllers\\DashboardController.cs",
-              "RelativeDocumentMoniker": "Controllers\\DashboardController.cs",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Controllers\\DashboardController.cs",
-              "RelativeToolTip": "Controllers\\DashboardController.cs",
-              "ViewState": "AgIAAC4AAAAAAAAAAAAgwCkAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-02T21:34:56.171Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "RouteConfig.cs",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\App_Start\\RouteConfig.cs",
-              "RelativeDocumentMoniker": "App_Start\\RouteConfig.cs",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\App_Start\\RouteConfig.cs",
-              "RelativeToolTip": "App_Start\\RouteConfig.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-02T21:36:22.721Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
-              "Title": "packages.config",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\packages.config",
-              "RelativeDocumentMoniker": "packages.config",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\packages.config",
-              "RelativeToolTip": "packages.config",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAABEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2025-01-27T22:27:48.842Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "Livro.cs",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Models\\Livro.cs",
-              "RelativeDocumentMoniker": "Models\\Livro.cs",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Models\\Livro.cs",
-              "RelativeToolTip": "Models\\Livro.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAhAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-03T00:49:10.26Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "Categoria.cs",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Models\\Categoria.cs",
-              "RelativeDocumentMoniker": "Models\\Categoria.cs",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Models\\Categoria.cs",
-              "RelativeToolTip": "Models\\Categoria.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-03T01:52:40.838Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 32,
-              "Title": "Details.cshtml",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Views\\Autores\\Details.cshtml",
-              "RelativeDocumentMoniker": "Views\\Autores\\Details.cshtml",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Views\\Autores\\Details.cshtml",
-              "RelativeToolTip": "Views\\Autores\\Details.cshtml",
-              "ViewState": "AgIAACEAAAAAAAAAAAAAAA8AAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-02T19:47:57.751Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 30,
-              "Title": "Web.config",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Views\\Web.config",
-              "RelativeDocumentMoniker": "Views\\Web.config",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Views\\Web.config",
-              "RelativeToolTip": "Views\\Web.config",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAATAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2025-02-03T01:44:47.395Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 33,
               "Title": "RelatoriosViewModel.cs",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Models\\ViewModels\\RelatoriosViewModel.cs",
+              "DocumentMoniker": "C:\\DEV\\CODI\\entrega06-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Models\\ViewModels\\RelatoriosViewModel.cs",
               "RelativeDocumentMoniker": "Models\\ViewModels\\RelatoriosViewModel.cs",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Models\\ViewModels\\RelatoriosViewModel.cs",
+              "ToolTip": "C:\\DEV\\CODI\\entrega06-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Models\\ViewModels\\RelatoriosViewModel.cs",
               "RelativeToolTip": "Models\\ViewModels\\RelatoriosViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-03T00:52:47.044Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 34,
-              "Title": "BibliotecaContext.cs",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Models\\Context\\BibliotecaContext.cs",
-              "RelativeDocumentMoniker": "Models\\Context\\BibliotecaContext.cs",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Models\\Context\\BibliotecaContext.cs",
-              "RelativeToolTip": "Models\\Context\\BibliotecaContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-02T21:21:03.785Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 35,
-              "Title": "Details.cshtml",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Views\\Categorias\\Details.cshtml",
-              "RelativeDocumentMoniker": "Views\\Categorias\\Details.cshtml",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Views\\Categorias\\Details.cshtml",
-              "RelativeToolTip": "Views\\Categorias\\Details.cshtml",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAkwBgAAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-02T20:57:00.411Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 36,
-              "Title": "Edit.cshtml",
-              "DocumentMoniker": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Views\\Autores\\Edit.cshtml",
-              "RelativeDocumentMoniker": "Views\\Autores\\Edit.cshtml",
-              "ToolTip": "C:\\DEV\\CODI\\Zencheck\\entrega05-bootcampaspnet-tiagodlobo\\SGB_Lobo\\Views\\Autores\\Edit.cshtml",
-              "RelativeToolTip": "Views\\Autores\\Edit.cshtml",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAkwCYAAAB0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-02T19:48:22.784Z"
+              "WhenOpened": "2025-04-12T22:50:09.091Z",
+              "EditorCaption": ""
             }
           ]
         }
