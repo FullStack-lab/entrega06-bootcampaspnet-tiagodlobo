@@ -12,7 +12,9 @@ namespace SGB_Lobo.AutoMapper
             // Mapeamento Livro <-> LivroViewModel
             CreateMap<Livro, LivroViewModel>()
                 .ForMember(dest => dest.AutorNome, opt => opt.MapFrom(src => src.Autor != null ? src.Autor.Nome : string.Empty))
-                .ForMember(dest => dest.CategoriaNome, opt => opt.MapFrom(src => src.Categoria != null ? src.Categoria.Nome : string.Empty));
+                .ForMember(dest => dest.CategoriaNome, opt => opt.MapFrom(src => src.Categoria != null ? src.Categoria.Nome : string.Empty))
+                .ForMember(dest => dest.Autor, opt => opt.MapFrom(src => src.Autor))
+                .ForMember(dest => dest.Categoria, opt => opt.MapFrom(src => src.Categoria));
 
             CreateMap<LivroViewModel, Livro>();
 

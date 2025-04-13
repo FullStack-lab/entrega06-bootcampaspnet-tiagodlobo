@@ -5,8 +5,11 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
+using AutoMapper;
+using SGB_Lobo.AutoMapper;
 using SGB_Lobo.Models;
 using SGB_Lobo.Models.Context;
+using SGB_Lobo.Models.ViewModels;
 
 namespace SGB_Lobo.Controllers
 {
@@ -14,17 +17,22 @@ namespace SGB_Lobo.Controllers
     public class CategoriasApiController : ApiController
     {
         private BibliotecaContext db = new BibliotecaContext();
+        private readonly IMapper _mapper;
+
+        public CategoriasApiController()
+        {
+            _mapper = MapperConfig.Mapper;
+        }
 
         // GET: api/categorias
         [HttpGet]
         [Route("")]
         public IHttpActionResult GetCategorias()
         {
-            var categorias = db.Categorias
-                .Select(c => new { id = c.Id, nome = c.Nome })
-                .ToList();
+            var categorias = db.Categorias.ToList();
+            var categoriasViewModel = _mapper.Map<List<CategoriaViewModel>>(categorias);
 
-            return Ok(categorias);
+            return Ok(categoriasViewModel);
         }
 
         // GET: api/categorias/5
@@ -38,20 +46,18 @@ namespace SGB_Lobo.Controllers
                 return NotFound();
             }
 
-            var resultado = new
-            {
-                id = categoria.Id,
-                nome = categoria.Nome,
-                qtdLivros = db.Livros.Count(l => l.CategoriaId == id)
-            };
+            var qtdLivros = db.Livros.Count(l => l.CategoriaId == id);
 
-            return Ok(resultado);
+            var categoriaViewModel = _mapper.Map<CategoriaViewModel>(categoria);
+            categoriaViewModel.QuantidadeLivros = qtdLivros;
+
+            return Ok(categoriaViewModel);
         }
 
         // POST: api/categorias
         [HttpPost]
         [Route("")]
-        public IHttpActionResult PostCategoria(Categoria categoria)
+        public IHttpActionResult PostCategoria(CategoriaViewModel categoriaViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -61,17 +67,17 @@ namespace SGB_Lobo.Controllers
             try
             {
                 // Verificar se já existe uma categoria com o mesmo nome
-                if (db.Categorias.Any(c => c.Nome == categoria.Nome))
+                if (db.Categorias.Any(c => c.Nome == categoriaViewModel.Nome))
                 {
                     return BadRequest("Já existe uma categoria com este nome.");
                 }
 
+                var categoria = _mapper.Map<Categoria>(categoriaViewModel);
                 db.Categorias.Add(categoria);
                 db.SaveChanges();
 
-                // *** IMPORTANTE: Esta é a linha que precisa ser alterada ***
-                // Não use CreatedAtRoute, use Ok
-                return Ok(new { id = categoria.Id, nome = categoria.Nome });
+                categoriaViewModel.Id = categoria.Id;
+                return Ok(categoriaViewModel);
             }
             catch (Exception ex)
             {
@@ -82,18 +88,25 @@ namespace SGB_Lobo.Controllers
         // PUT: api/categorias/5
         [HttpPut]
         [Route("{id:int}")]
-        public IHttpActionResult PutCategoria(int id, Categoria categoria)
+        public IHttpActionResult PutCategoria(int id, CategoriaViewModel categoriaViewModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != categoria.Id)
+            if (id != categoriaViewModel.Id)
             {
                 return BadRequest("O ID fornecido não corresponde à categoria");
             }
 
+            // Verificar se já existe outra categoria com o mesmo nome
+            if (db.Categorias.Any(c => c.Nome.ToLower() == categoriaViewModel.Nome.ToLower() && c.Id != id))
+            {
+                return BadRequest("Já existe uma categoria com este nome.");
+            }
+
+            var categoria = _mapper.Map<Categoria>(categoriaViewModel);
             db.Entry(categoria).State = EntityState.Modified;
 
             try

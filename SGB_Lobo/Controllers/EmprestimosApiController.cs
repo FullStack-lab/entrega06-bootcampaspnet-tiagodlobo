@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
+using AutoMapper;
+using SGB_Lobo.AutoMapper;
 using SGB_Lobo.Models;
 using SGB_Lobo.Models.Context;
+using SGB_Lobo.Models.ViewModels;
 
 namespace SGB_Lobo.Controllers
 {
@@ -14,6 +16,12 @@ namespace SGB_Lobo.Controllers
     public class EmprestimosApiController : ApiController
     {
         private BibliotecaContext db = new BibliotecaContext();
+        private readonly IMapper _mapper;
+
+        public EmprestimosApiController()
+        {
+            _mapper = MapperConfig.Mapper;
+        }
 
         // GET: api/emprestimos
         [HttpGet]
@@ -26,34 +34,15 @@ namespace SGB_Lobo.Controllers
                     .Include(e => e.Livro)
                     .Include(e => e.Usuario)
                     .OrderByDescending(e => e.DataEmprestimo)
-                    .ToList()
-                    .Select(e => new
-                    {
-                        id = e.Id,
-                        livroId = e.LivroId,
-                        livroTitulo = e.Livro.Titulo,
-                        usuarioId = e.UsuarioId,
-                        usuarioNome = e.Usuario.Nome,
-                        dataEmprestimo = e.DataEmprestimo,
-                        dataPrevistaDevolucao = e.DataPrevistaDevolucao,
-                        dataDevolucao = e.DataDevolucao,
-                        emAtraso = !e.DataDevolucao.HasValue && DateTime.Now > e.DataPrevistaDevolucao,
-                        devolvido = e.DataDevolucao.HasValue,
-                        status = GetStatusEmprestimo(e),
-                        diasAtraso = !e.DataDevolucao.HasValue && DateTime.Now > e.DataPrevistaDevolucao
-                            ? (int)(DateTime.Now - e.DataPrevistaDevolucao).TotalDays
-                            : 0
-                    })
                     .ToList();
 
-                return Ok(emprestimos);
+                var emprestimosViewModel = _mapper.Map<List<EmprestimoViewModel>>(emprestimos);
+
+                return Ok(emprestimosViewModel);
             }
             catch (Exception ex)
             {
-                // Loga o erro detalhado
                 System.Diagnostics.Debug.WriteLine("Erro ao obter empréstimos: " + ex.ToString());
-
-                // Retorna uma resposta de erro mais descritiva
                 return InternalServerError(ex);
             }
         }
@@ -73,25 +62,9 @@ namespace SGB_Lobo.Controllers
                 return NotFound();
             }
 
-            var resultado = new
-            {
-                id = emprestimo.Id,
-                livroId = emprestimo.LivroId,
-                livroTitulo = emprestimo.Livro.Titulo,
-                usuarioId = emprestimo.UsuarioId,
-                usuarioNome = emprestimo.Usuario.Nome,
-                dataEmprestimo = emprestimo.DataEmprestimo,
-                dataPrevistaDevolucao = emprestimo.DataPrevistaDevolucao,
-                dataDevolucao = emprestimo.DataDevolucao,
-                emAtraso = !emprestimo.DataDevolucao.HasValue && DateTime.Now > emprestimo.DataPrevistaDevolucao,
-                devolvido = emprestimo.DataDevolucao.HasValue,
-                status = GetStatusEmprestimo(emprestimo),
-                diasAtraso = !emprestimo.DataDevolucao.HasValue && DateTime.Now > emprestimo.DataPrevistaDevolucao
-                    ? (int)(DateTime.Now - emprestimo.DataPrevistaDevolucao).TotalDays
-                    : 0
-            };
+            var emprestimoViewModel = _mapper.Map<EmprestimoViewModel>(emprestimo);
 
-            return Ok(resultado);
+            return Ok(emprestimoViewModel);
         }
 
         // GET: api/emprestimos/livros-disponiveis
@@ -102,17 +75,19 @@ namespace SGB_Lobo.Controllers
             var livros = db.Livros
                 .Include(l => l.Autor)
                 .Where(l => l.Disponivel)
-                .Select(l => new
-                {
-                    id = l.Id,
-                    titulo = l.Titulo,
-                    autor = l.Autor.Nome,
-                    nomeCompleto = l.Titulo + " - " + l.Autor.Nome
-                })
-                .OrderBy(l => l.titulo)
                 .ToList();
 
-            return Ok(livros);
+            var livrosViewModel = _mapper.Map<List<LivroViewModel>>(livros);
+
+            var resultado = livrosViewModel.Select(l => new
+            {
+                id = l.Id,
+                titulo = l.Titulo,
+                autor = l.AutorNome,
+                nomeCompleto = $"{l.Titulo} - {l.AutorNome}"
+            }).OrderBy(l => l.titulo);
+
+            return Ok(resultado);
         }
 
         // GET: api/emprestimos/usuarios-ativos
@@ -122,50 +97,52 @@ namespace SGB_Lobo.Controllers
         {
             var usuarios = db.Usuarios
                 .Where(u => u.Ativo)
-                .Select(u => new
-                {
-                    id = u.Id,
-                    nome = u.Nome,
-                    email = u.Email,
-                    nomeCompleto = u.Nome + " (" + u.Email + ")"
-                })
-                .OrderBy(u => u.nome)
                 .ToList();
 
-            return Ok(usuarios);
+            var usuariosViewModel = _mapper.Map<List<UsuarioViewModel>>(usuarios);
+
+            var resultado = usuariosViewModel.Select(u => new
+            {
+                id = u.Id,
+                nome = u.Nome,
+                email = u.Email,
+                nomeCompleto = $"{u.Nome} ({u.Email})"
+            }).OrderBy(u => u.nome);
+
+            return Ok(resultado);
         }
 
         // POST: api/emprestimos
         [HttpPost]
         [Route("")]
-        public IHttpActionResult PostEmprestimo([FromBody] EmprestimoInputModel inputModel)
+        public IHttpActionResult PostEmprestimo([FromBody] EmprestimoViewModel emprestimoViewModel)
         {
             try
             {
-                if (inputModel == null)
+                if (emprestimoViewModel == null)
                 {
                     return BadRequest("Dados do empréstimo não fornecidos.");
                 }
 
-                var emprestimo = new Emprestimo
+                if (!ModelState.IsValid)
                 {
-                    LivroId = inputModel.LivroId,
-                    UsuarioId = inputModel.UsuarioId,
-                    DataPrevistaDevolucao = inputModel.DataPrevistaDevolucao,
-                    DataEmprestimo = DateTime.Now // Definir aqui no servidor
-                };
+                    return BadRequest(ModelState);
+                }
 
-                var livro = db.Livros.Find(emprestimo.LivroId);
+                var livro = db.Livros.Find(emprestimoViewModel.LivroId);
                 if (livro == null || !livro.Disponivel)
                 {
                     return BadRequest("Este livro não está disponível para empréstimo.");
                 }
 
-                var usuario = db.Usuarios.Find(emprestimo.UsuarioId);
+                var usuario = db.Usuarios.Find(emprestimoViewModel.UsuarioId);
                 if (usuario == null || !usuario.Ativo)
                 {
                     return BadRequest("O usuário selecionado não está ativo.");
                 }
+
+                var emprestimo = _mapper.Map<Emprestimo>(emprestimoViewModel);
+                emprestimo.DataEmprestimo = DateTime.Now;
 
                 livro.Disponivel = false;
 
@@ -173,6 +150,43 @@ namespace SGB_Lobo.Controllers
                 db.SaveChanges();
 
                 return Ok(new { id = emprestimo.Id, message = "Empréstimo realizado com sucesso!" });
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        // PUT: api/emprestimos/5/devolver
+        [HttpPut]
+        [Route("{id:int}/devolver")]
+        public IHttpActionResult DevolverEmprestimo(int id)
+        {
+            try
+            {
+                var emprestimo = db.Emprestimos
+                    .Include(e => e.Livro)
+                    .FirstOrDefault(e => e.Id == id);
+
+                if (emprestimo == null)
+                {
+                    return NotFound();
+                }
+
+                if (emprestimo.DataDevolucao.HasValue)
+                {
+                    return BadRequest("Este livro já foi devolvido.");
+                }
+
+                emprestimo.DataDevolucao = DateTime.Now;
+                emprestimo.Livro.Disponivel = true;
+
+                db.SaveChanges();
+
+                // Mapear para o ViewModel para retornar os dados atualizados
+                var emprestimoViewModel = _mapper.Map<EmprestimoViewModel>(emprestimo);
+
+                return Ok(new { message = "Livro devolvido com sucesso!", emprestimo = emprestimoViewModel });
             }
             catch (Exception ex)
             {
@@ -213,49 +227,6 @@ namespace SGB_Lobo.Controllers
             }
         }
 
-        // Classe auxiliar para deserialização do JSON
-        public class EmprestimoInputModel
-        {
-            public int LivroId { get; set; }
-            public int UsuarioId { get; set; }
-            public DateTime DataPrevistaDevolucao { get; set; }
-            // DataEmprestimo não é necessário aqui
-        }
-
-        // PUT: api/emprestimos/5/devolver
-        [HttpPut]
-        [Route("{id:int}/devolver")]
-        public IHttpActionResult DevolverEmprestimo(int id)
-        {
-            try
-            {
-                var emprestimo = db.Emprestimos
-                    .Include(e => e.Livro)
-                    .FirstOrDefault(e => e.Id == id);
-
-                if (emprestimo == null)
-                {
-                    return NotFound();
-                }
-
-                if (emprestimo.DataDevolucao.HasValue)
-                {
-                    return BadRequest("Este livro já foi devolvido.");
-                }
-
-                emprestimo.DataDevolucao = DateTime.Now;
-                emprestimo.Livro.Disponivel = true;
-
-                db.SaveChanges();
-
-                return Ok(new { message = "Livro devolvido com sucesso!" });
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -263,22 +234,6 @@ namespace SGB_Lobo.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private static string GetStatusEmprestimo(Emprestimo emprestimo)
-        {
-            if (emprestimo.DataDevolucao.HasValue)
-            {
-                return emprestimo.DataDevolucao <= emprestimo.DataPrevistaDevolucao
-                    ? "Devolvido no Prazo"
-                    : "Devolvido com Atraso";
-            }
-            else
-            {
-                return DateTime.Now > emprestimo.DataPrevistaDevolucao
-                    ? "Em Atraso"
-                    : "Em Andamento";
-            }
         }
     }
 }

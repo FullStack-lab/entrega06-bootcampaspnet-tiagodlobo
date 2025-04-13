@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<SGB_Lobo.Models.ViewModels.UsuarioViewModel>
+
+@{
     ViewBag.Title = "Gerenciamento de Usuários";
 }
 
@@ -269,23 +271,23 @@
                                 : '<span class="badge bg-danger">Inativo</span>';
 
                             let row = `<tr>
-                                    <td>${usuario.id}</td>
-                                    <td>${usuario.nome}</td>
-                                    <td>${usuario.email}</td>
-                                    <td>${usuario.telefone}</td>
-                                    <td>${statusBadge}</td>
-                                    <td>
-                                        <div class="d-flex gap-2">
-                                            <button type="button" class="btn btn-link btn-sm btn-editar" data-id="${usuario.id}">
-                                                <i class="fas fa-edit"></i> Editar
-                                            </button>
-                                            <button type="button" class="btn btn-danger btn-sm rounded-pill btn-excluir"
-                                                    data-id="${usuario.id}" data-nome="${usuario.nome}">
-                                                <i class="fas fa-trash"></i> Excluir
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>`;
+                                        <td>${usuario.id}</td>
+                                        <td>${usuario.nome}</td>
+                                        <td>${usuario.email}</td>
+                                        <td>${usuario.telefone}</td>
+                                        <td>${statusBadge}</td>
+                                        <td>
+                                            <div class="d-flex gap-2">
+                                                <button type="button" class="btn btn-link btn-sm btn-editar" data-id="${usuario.id}">
+                                                    <i class="fas fa-edit"></i> Editar
+                                                </button>
+                                                <button type="button" class="btn btn-danger btn-sm rounded-pill btn-excluir"
+                                                        data-id="${usuario.id}" data-nome="${usuario.nome}">
+                                                    <i class="fas fa-trash"></i> Excluir
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>`;
 
                             tbody.append(row);
                         });

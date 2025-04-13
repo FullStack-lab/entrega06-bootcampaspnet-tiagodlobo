@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<SGB_Lobo.Models.ViewModels.EmprestimoViewModel>
+
+@{
     ViewBag.Title = "Empréstimos";
 }
 
@@ -241,21 +243,21 @@
                         var acoes = "";
                         if (!emprestimo.devolvido) {
                             acoes = `
-                                        <div class="d-flex gap-2">
-                                            <button type="button" class="btn btn-success btn-sm" onclick="prepararDevolucao(${emprestimo.id})">
-                                                <i class="fas fa-check"></i> Devolver
-                                            </button>
-                                            <button type="button" class="btn btn-danger btn-sm rounded-pill" onclick="prepararExclusao(${emprestimo.id}, '${emprestimo.livroTitulo}')">
-                                                <i class="fas fa-trash"></i> Excluir
-                                            </button>
-                                        </div>`;
+                                            <div class="d-flex gap-2">
+                                                <button type="button" class="btn btn-success btn-sm" onclick="prepararDevolucao(${emprestimo.id})">
+                                                    <i class="fas fa-check"></i> Devolver
+                                                </button>
+                                                <button type="button" class="btn btn-danger btn-sm rounded-pill" onclick="prepararExclusao(${emprestimo.id}, '${emprestimo.livroTitulo}')">
+                                                    <i class="fas fa-trash"></i> Excluir
+                                                </button>
+                                            </div>`;
                         } else {
                             acoes = `
-                                        <div class="d-flex gap-2">
-                                            <button type="button" class="btn btn-danger btn-sm rounded-pill" onclick="prepararExclusao(${emprestimo.id}, '${emprestimo.livroTitulo}')">
-                                                <i class="fas fa-trash"></i> Excluir
-                                            </button>
-                                        </div>`;
+                                            <div class="d-flex gap-2">
+                                                <button type="button" class="btn btn-danger btn-sm rounded-pill" onclick="prepararExclusao(${emprestimo.id}, '${emprestimo.livroTitulo}')">
+                                                    <i class="fas fa-trash"></i> Excluir
+                                                </button>
+                                            </div>`;
                         }
 
                         var dataDevolucao = emprestimo.dataDevolucao
@@ -263,14 +265,14 @@
                             : "-";
 
                         var row = `<tr>
-                                        <td>${emprestimo.livroTitulo}</td>
-                                        <td>${emprestimo.usuarioNome}</td>
-                                        <td>${new Date(emprestimo.dataEmprestimo).toLocaleDateString('pt-BR')}</td>
-                                        <td>${new Date(emprestimo.dataPrevistaDevolucao).toLocaleDateString('pt-BR')}</td>
-                                        <td>${dataDevolucao}</td>
-                                        <td>${statusBadge}</td>
-                                        <td>${acoes}</td>
-                                    </tr>`;
+                                            <td>${emprestimo.livroTitulo}</td>
+                                            <td>${emprestimo.usuarioNome}</td>
+                                            <td>${new Date(emprestimo.dataEmprestimo).toLocaleDateString('pt-BR')}</td>
+                                            <td>${new Date(emprestimo.dataPrevistaDevolucao).toLocaleDateString('pt-BR')}</td>
+                                            <td>${dataDevolucao}</td>
+                                            <td>${statusBadge}</td>
+                                            <td>${acoes}</td>
+                                        </tr>`;
 
                         tbody.append(row);
                     });
@@ -430,9 +432,9 @@
                     var statusHtml = "";
                     if (emprestimo.emAtraso) {
                         statusHtml = `<span class="badge bg-danger">Em Atraso</span>
-                                              <small class="text-danger d-block">
-                                                  Atraso de ${emprestimo.diasAtraso} dias
-                                              </small>`;
+                                                  <small class="text-danger d-block">
+                                                      Atraso de ${emprestimo.diasAtraso} dias
+                                                  </small>`;
                     } else {
                         statusHtml = '<span class="badge bg-success">No Prazo</span>';
                     }

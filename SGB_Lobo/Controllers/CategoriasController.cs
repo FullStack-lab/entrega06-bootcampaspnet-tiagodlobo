@@ -1,21 +1,33 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using AutoMapper;
+using SGB_Lobo.AutoMapper;
 using SGB_Lobo.Models;
 using SGB_Lobo.Models.Context;
+using SGB_Lobo.Models.ViewModels;
 
 namespace SGB_Lobo.Controllers
 {
     public class CategoriasController : Controller
     {
         private BibliotecaContext db = new BibliotecaContext();
+        private readonly IMapper _mapper;
+
+        public CategoriasController()
+        {
+            _mapper = MapperConfig.Mapper;
+        }
 
         // GET: Categorias
         public ActionResult Index()
         {
-            return View(db.Categorias.ToList());
+            var categorias = db.Categorias.ToList();
+            var categoriasViewModel = _mapper.Map<List<CategoriaViewModel>>(categorias);
+            return View(categoriasViewModel);
         }
 
         // GET: Categorias/Details/{id}
@@ -31,7 +43,8 @@ namespace SGB_Lobo.Controllers
             if (categoria == null)
                 return HttpNotFound();
 
-            return View(categoria);
+            var categoriaViewModel = _mapper.Map<CategoriaViewModel>(categoria);
+            return View(categoriaViewModel);
         }
 
         // GET: Categorias/Create
@@ -43,24 +56,25 @@ namespace SGB_Lobo.Controllers
         // POST: Categorias/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Categoria categoria)
+        public ActionResult Create(CategoriaViewModel categoriaViewModel)
         {
             // Verifica se já existe uma categoria com o mesmo nome
-            if (db.Categorias.Any(c => c.Nome.ToLower() == categoria.Nome.ToLower()))
+            if (db.Categorias.Any(c => c.Nome.ToLower() == categoriaViewModel.Nome.ToLower()))
             {
                 ModelState.AddModelError("Nome", "Já existe uma categoria com este nome.");
-                return View(categoria);
+                return View(categoriaViewModel);
             }
 
             if (ModelState.IsValid)
             {
+                var categoria = _mapper.Map<Categoria>(categoriaViewModel);
                 db.Categorias.Add(categoria);
                 db.SaveChanges();
                 TempData["Success"] = "Categoria criada com sucesso!";
                 return RedirectToAction("Index");
             }
 
-            return View(categoria);
+            return View(categoriaViewModel);
         }
 
         // GET: Categorias/Edit/{id}
@@ -74,30 +88,32 @@ namespace SGB_Lobo.Controllers
             if (categoria == null)
                 return HttpNotFound();
 
-            return View(categoria);
+            var categoriaViewModel = _mapper.Map<CategoriaViewModel>(categoria);
+            return View(categoriaViewModel);
         }
 
         // POST: Categorias/Edit/{id}
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Categoria categoria)
+        public ActionResult Edit(CategoriaViewModel categoriaViewModel)
         {
             // Verifica se já existe outra categoria com o mesmo nome
-            if (db.Categorias.Any(c => c.Nome.ToLower() == categoria.Nome.ToLower() && c.Id != categoria.Id))
+            if (db.Categorias.Any(c => c.Nome.ToLower() == categoriaViewModel.Nome.ToLower() && c.Id != categoriaViewModel.Id))
             {
                 ModelState.AddModelError("Nome", "Já existe uma categoria com este nome.");
-                return View(categoria);
+                return View(categoriaViewModel);
             }
 
             if (ModelState.IsValid)
             {
+                var categoria = _mapper.Map<Categoria>(categoriaViewModel);
                 db.Entry(categoria).State = EntityState.Modified;
                 db.SaveChanges();
                 TempData["Success"] = "Categoria atualizada com sucesso!";
                 return RedirectToAction("Index");
             }
 
-            return View(categoria);
+            return View(categoriaViewModel);
         }
 
         // POST: Categorias/Delete/{id}

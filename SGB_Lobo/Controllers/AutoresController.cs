@@ -1,21 +1,33 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using AutoMapper;
+using SGB_Lobo.AutoMapper;
 using SGB_Lobo.Models;
 using SGB_Lobo.Models.Context;
+using SGB_Lobo.Models.ViewModels;
 
 namespace SGB_Lobo.Controllers
 {
     public class AutoresController : Controller
     {
         private BibliotecaContext db = new BibliotecaContext();
+        private readonly IMapper _mapper;
+
+        public AutoresController()
+        {
+            _mapper = MapperConfig.Mapper;
+        }
 
         // GET: Autores
         public ActionResult Index()
         {
-            return View(db.Autores.ToList());
+            var autores = db.Autores.ToList();
+            var autoresViewModel = _mapper.Map<List<AutorViewModel>>(autores);
+            return View(autoresViewModel);
         }
 
         // GET: Autores/Details/{id}
@@ -31,7 +43,8 @@ namespace SGB_Lobo.Controllers
             if (autor == null)
                 return HttpNotFound();
 
-            return View(autor);
+            var autorViewModel = _mapper.Map<AutorViewModel>(autor);
+            return View(autorViewModel);
         }
 
         // GET: Autores/Create
@@ -43,16 +56,17 @@ namespace SGB_Lobo.Controllers
         // POST: Autores/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Autor autor)
+        public ActionResult Create(AutorViewModel autorViewModel)
         {
             if (ModelState.IsValid)
             {
+                var autor = _mapper.Map<Autor>(autorViewModel);
                 db.Autores.Add(autor);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(autor);
+            return View(autorViewModel);
         }
 
         // GET: Autores/Edit/{id}
@@ -66,22 +80,24 @@ namespace SGB_Lobo.Controllers
             if (autor == null)
                 return HttpNotFound();
 
-            return View(autor);
+            var autorViewModel = _mapper.Map<AutorViewModel>(autor);
+            return View(autorViewModel);
         }
 
         // POST: Autores/Edit/{id}
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Autor autor)
+        public ActionResult Edit(AutorViewModel autorViewModel)
         {
             if (ModelState.IsValid)
             {
+                var autor = _mapper.Map<Autor>(autorViewModel);
                 db.Entry(autor).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(autor);
+            return View(autorViewModel);
         }
 
         // GET: Autores/Delete/{id}
@@ -97,7 +113,8 @@ namespace SGB_Lobo.Controllers
             if (autor == null)
                 return HttpNotFound();
 
-            return View(autor);
+            var autorViewModel = _mapper.Map<AutorViewModel>(autor);
+            return View(autorViewModel);
         }
 
         // POST: Autores/Delete/{id}

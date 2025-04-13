@@ -1,16 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using AutoMapper;
+using SGB_Lobo.AutoMapper;
 using SGB_Lobo.Models;
 using SGB_Lobo.Models.Context;
+using SGB_Lobo.Models.ViewModels;
 
 namespace SGB_Lobo.Controllers
 {
     public class EmprestimosController : Controller
     {
         private BibliotecaContext db = new BibliotecaContext();
+        private readonly IMapper _mapper;
+
+        public EmprestimosController()
+        {
+            _mapper = MapperConfig.Mapper;
+        }
 
         // GET: Emprestimos
         public ActionResult Index()
@@ -20,7 +30,9 @@ namespace SGB_Lobo.Controllers
                 .Include(e => e.Usuario)
                 .OrderByDescending(e => e.DataEmprestimo)
                 .ToList();
-            return View(emprestimos);
+
+            var emprestimosViewModel = _mapper.Map<List<EmprestimoViewModel>>(emprestimos);
+            return View(emprestimosViewModel);
         }
 
         // GET: Emprestimos/Create
@@ -53,18 +65,19 @@ namespace SGB_Lobo.Controllers
         // POST: Emprestimos/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Emprestimo emprestimo)
+        public ActionResult Create(EmprestimoViewModel emprestimoViewModel)
         {
             if (ModelState.IsValid)
             {
-                var livro = db.Livros.Find(emprestimo.LivroId);
+                var livro = db.Livros.Find(emprestimoViewModel.LivroId);
                 if (livro == null || !livro.Disponivel)
                 {
                     ModelState.AddModelError("", "Este livro não está disponível para empréstimo.");
                     PreparaViewBagsCreate();
-                    return View(emprestimo);
+                    return View(emprestimoViewModel);
                 }
 
+                var emprestimo = _mapper.Map<Emprestimo>(emprestimoViewModel);
                 livro.Disponivel = false;
                 emprestimo.DataEmprestimo = DateTime.Now;
 
@@ -76,7 +89,7 @@ namespace SGB_Lobo.Controllers
             }
 
             PreparaViewBagsCreate();
-            return View(emprestimo);
+            return View(emprestimoViewModel);
         }
 
         // GET: Emprestimos/Devolver/{id}
@@ -99,7 +112,8 @@ namespace SGB_Lobo.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(emprestimo);
+            var emprestimoViewModel = _mapper.Map<EmprestimoViewModel>(emprestimo);
+            return View(emprestimoViewModel);
         }
 
         // POST: Emprestimos/Devolver/{id}

@@ -5,8 +5,11 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
+using AutoMapper;
+using SGB_Lobo.AutoMapper;
 using SGB_Lobo.Models;
 using SGB_Lobo.Models.Context;
+using SGB_Lobo.Models.ViewModels;
 
 namespace SGB_Lobo.Controllers
 {
@@ -14,17 +17,22 @@ namespace SGB_Lobo.Controllers
     public class UsuariosApiController : ApiController
     {
         private BibliotecaContext db = new BibliotecaContext();
+        private readonly IMapper _mapper;
+
+        public UsuariosApiController()
+        {
+            _mapper = MapperConfig.Mapper;
+        }
 
         // GET: api/usuarios
         [HttpGet]
         [Route("")]
         public IHttpActionResult GetUsuarios()
         {
-            var usuarios = db.Usuarios
-                .Select(u => new { id = u.Id, nome = u.Nome, email = u.Email, telefone = u.Telefone, ativo = u.Ativo })
-                .ToList();
+            var usuarios = db.Usuarios.ToList();
+            var usuariosViewModel = _mapper.Map<List<UsuarioViewModel>>(usuarios);
 
-            return Ok(usuarios);
+            return Ok(usuariosViewModel);
         }
 
         // GET: api/usuarios/5
@@ -38,23 +46,18 @@ namespace SGB_Lobo.Controllers
                 return NotFound();
             }
 
-            var resultado = new
-            {
-                id = usuario.Id,
-                nome = usuario.Nome,
-                email = usuario.Email,
-                telefone = usuario.Telefone,
-                ativo = usuario.Ativo,
-                qtdEmprestimos = db.Emprestimos.Count(e => e.UsuarioId == id)
-            };
+            var qtdEmprestimos = db.Emprestimos.Count(e => e.UsuarioId == id);
 
-            return Ok(resultado);
+            var usuarioViewModel = _mapper.Map<UsuarioViewModel>(usuario);
+            usuarioViewModel.QuantidadeEmprestimos = qtdEmprestimos;
+
+            return Ok(usuarioViewModel);
         }
 
         // POST: api/usuarios
         [HttpPost]
         [Route("")]
-        public IHttpActionResult PostUsuario(Usuario usuario)
+        public IHttpActionResult PostUsuario(UsuarioViewModel usuarioViewModel)
         {
             try
             {
@@ -63,18 +66,16 @@ namespace SGB_Lobo.Controllers
                     return BadRequest(ModelState);
                 }
 
+                var usuario = _mapper.Map<Usuario>(usuarioViewModel);
                 db.Usuarios.Add(usuario);
                 db.SaveChanges();
 
-                // Retorne apenas um OK com os dados necessários
-                return Ok(new { id = usuario.Id });
+                usuarioViewModel.Id = usuario.Id;
+                return Ok(usuarioViewModel);
             }
             catch (Exception ex)
             {
-                // Log do erro completo
                 System.Diagnostics.Debug.WriteLine("Erro ao cadastrar usuário: " + ex.ToString());
-
-                // Retorne uma mensagem genérica para o cliente
                 return ResponseMessage(new System.Net.Http.HttpResponseMessage(HttpStatusCode.InternalServerError)
                 {
                     Content = new System.Net.Http.StringContent("Erro ao processar a requisição.")
@@ -85,18 +86,19 @@ namespace SGB_Lobo.Controllers
         // PUT: api/usuarios/5
         [HttpPut]
         [Route("{id:int}")]
-        public IHttpActionResult PutUsuario(int id, Usuario usuario)
+        public IHttpActionResult PutUsuario(int id, UsuarioViewModel usuarioViewModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != usuario.Id)
+            if (id != usuarioViewModel.Id)
             {
                 return BadRequest("O ID fornecido não corresponde ao usuário");
             }
 
+            var usuario = _mapper.Map<Usuario>(usuarioViewModel);
             db.Entry(usuario).State = EntityState.Modified;
 
             try
@@ -148,10 +150,11 @@ namespace SGB_Lobo.Controllers
         {
             var usuariosAtivos = db.Usuarios
                 .Where(u => u.Ativo)
-                .Select(u => new { id = u.Id, nome = u.Nome, email = u.Email })
                 .ToList();
 
-            return Ok(usuariosAtivos);
+            var usuariosViewModel = _mapper.Map<List<UsuarioViewModel>>(usuariosAtivos);
+
+            return Ok(usuariosViewModel);
         }
 
         protected override void Dispose(bool disposing)

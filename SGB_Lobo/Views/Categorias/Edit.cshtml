@@ -1,4 +1,4 @@
-﻿@model SGB_Lobo.Models.Categoria
+﻿@model SGB_Lobo.Models.ViewModels.CategoriaViewModel
 
 @{
     ViewBag.Title = "Editar Categoria";
@@ -43,6 +43,9 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script>
+        // Definir o valor do ID categoria como uma variável JavaScript
+        var categoriaId = @Model.Id;
+
         // Adiciona validação customizada para verificar duplicatas
         $.validator.addMethod("categoriaUnica", function (value, element) {
             var isValid = false;
@@ -51,7 +54,7 @@
                 type: 'POST',
                 data: {
                     nome: value,
-                    id: @Model.Id
+                    id: categoriaId
                 },
                 async: false,
                 success: function (result) {

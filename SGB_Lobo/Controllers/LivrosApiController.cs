@@ -4,8 +4,11 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
+using AutoMapper;
+using SGB_Lobo.AutoMapper;
 using SGB_Lobo.Models;
 using SGB_Lobo.Models.Context;
+using SGB_Lobo.Models.ViewModels;
 
 namespace SGB_Lobo.Controllers
 {
@@ -13,6 +16,12 @@ namespace SGB_Lobo.Controllers
     public class LivrosApiController : ApiController
     {
         private BibliotecaContext db = new BibliotecaContext();
+        private readonly IMapper _mapper;
+
+        public LivrosApiController()
+        {
+            _mapper = MapperConfig.Mapper;
+        }
 
         // GET api/livros
         [HttpGet]
@@ -46,16 +55,10 @@ namespace SGB_Lobo.Controllers
                 livros = livros.Where(l => l.Disponivel == disponivel);
             }
 
-            var result = livros.Select(l => new {
-                id = l.Id,
-                titulo = l.Titulo,
-                autor = l.Autor.Nome,
-                categoria = l.Categoria.Nome,
-                anoPublicacao = l.AnoPublicacao,
-                disponivel = l.Disponivel
-            }).ToList();
+            // Usar AutoMapper para converter para ViewModel
+            var livrosViewModel = _mapper.Map<List<LivroViewModel>>(livros.ToList());
 
-            return Ok(result);
+            return Ok(livrosViewModel);
         }
 
         // GET api/livros/5
@@ -71,28 +74,22 @@ namespace SGB_Lobo.Controllers
             if (livro == null)
                 return NotFound();
 
-            var result = new
-            {
-                id = livro.Id,
-                titulo = livro.Titulo,
-                autorId = livro.AutorId,
-                autor = livro.Autor.Nome,
-                categoriaId = livro.CategoriaId,
-                categoria = livro.Categoria.Nome,
-                anoPublicacao = livro.AnoPublicacao,
-                disponivel = livro.Disponivel
-            };
+            // Usar AutoMapper para converter para ViewModel
+            var livroViewModel = _mapper.Map<LivroViewModel>(livro);
 
-            return Ok(result);
+            return Ok(livroViewModel);
         }
 
         // POST api/livros
         [HttpPost]
         [Route("")]
-        public IHttpActionResult Post([FromBody] Livro livro)
+        public IHttpActionResult Post([FromBody] LivroViewModel livroViewModel)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
+            // Converter de ViewModel para Entidade
+            var livro = _mapper.Map<Livro>(livroViewModel);
 
             db.Livros.Add(livro);
             db.SaveChanges();
@@ -103,17 +100,20 @@ namespace SGB_Lobo.Controllers
         // PUT api/livros/5
         [HttpPut]
         [Route("{id:int}")]
-        public IHttpActionResult Put(int id, [FromBody] Livro livro)
+        public IHttpActionResult Put(int id, [FromBody] LivroViewModel livroViewModel)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            if (id != livro.Id)
+            if (id != livroViewModel.Id)
                 return BadRequest("ID inconsistente");
 
             var existingLivro = db.Livros.Find(id);
             if (existingLivro == null)
                 return NotFound();
+
+            // Converter de ViewModel para Entidade
+            var livro = _mapper.Map<Livro>(livroViewModel);
 
             db.Entry(existingLivro).CurrentValues.SetValues(livro);
             db.SaveChanges();
@@ -149,16 +149,12 @@ namespace SGB_Lobo.Controllers
                 .Include(l => l.Autor)
                 .Include(l => l.Categoria)
                 .Where(l => l.Disponivel)
-                .Select(l => new {
-                    id = l.Id,
-                    titulo = l.Titulo,
-                    autor = l.Autor.Nome,
-                    categoria = l.Categoria.Nome,
-                    anoPublicacao = l.AnoPublicacao
-                })
                 .ToList();
 
-            return Ok(livros);
+            // Usar AutoMapper para converter para ViewModel
+            var livrosViewModel = _mapper.Map<List<LivroViewModel>>(livros);
+
+            return Ok(livrosViewModel);
         }
 
         protected override void Dispose(bool disposing)

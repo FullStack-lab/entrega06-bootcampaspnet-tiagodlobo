@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SGB_Lobo.Models.Livro>
+﻿@model IEnumerable<SGB_Lobo.Models.ViewModels.LivroViewModel>
 
 @{
     ViewBag.Title = "Livros";
@@ -405,28 +405,28 @@
                         '<span class="badge bg-danger">Não</span>';
 
                     var row = `
-                        <tr>
-                            <td>${livro.titulo}</td>
-                            <td>${livro.autor}</td>
-                            <td>${livro.categoria}</td>
-                            <td>${livro.anoPublicacao}</td>
-                            <td>${disponibilidadeBadge}</td>
-                            <td>
-                                <div class="d-flex gap-2">
-                                    <button type="button" class="btn btn-link btn-sm" onclick="mostrarEdicao(${livro.id})">
-                                        <i class="fas fa-edit"></i> Editar
-                                    </button>
-                                    <button type="button" class="btn btn-link btn-sm" onclick="mostrarDetalhes(${livro.id})">
-                                        <i class="fas fa-info-circle"></i> Detalhes
-                                    </button>
-                                    <button type="button" class="btn btn-danger btn-sm rounded-pill" 
-                                            onclick="prepararExclusao(${livro.id}, '${livro.titulo}')">
-                                        <i class="fas fa-trash"></i> Excluir
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    `;
+                            <tr>
+                                <td>${livro.titulo}</td>
+                                <td>${livro.autor}</td>
+                                <td>${livro.categoria}</td>
+                                <td>${livro.anoPublicacao}</td>
+                                <td>${disponibilidadeBadge}</td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <button type="button" class="btn btn-link btn-sm" onclick="mostrarEdicao(${livro.id})">
+                                            <i class="fas fa-edit"></i> Editar
+                                        </button>
+                                        <button type="button" class="btn btn-link btn-sm" onclick="mostrarDetalhes(${livro.id})">
+                                            <i class="fas fa-info-circle"></i> Detalhes
+                                        </button>
+                                        <button type="button" class="btn btn-danger btn-sm rounded-pill"
+                                                onclick="prepararExclusao(${livro.id}, '${livro.titulo}')">
+                                            <i class="fas fa-trash"></i> Excluir
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        `;
 
                     tbody.append(row);
                 });
@@ -481,12 +481,12 @@
             });
         }
 
-            // Variáveis globais para os modais
-            var modalCreate, modalDetails, modalEdit;
+        // Variáveis globais para os modais
+        var modalCreate, modalDetails, modalEdit;
 
-            $(document).ready(function() {
-                // Inicializar modais
-                modalCreate = new bootstrap.Modal(document.getElementById('modalCreate'));
+        $(document).ready(function () {
+            // Inicializar modais
+            modalCreate = new bootstrap.Modal(document.getElementById('modalCreate'));
             modalDetails = new bootstrap.Modal(document.getElementById('modalDetails'));
             modalEdit = new bootstrap.Modal(document.getElementById('modalEdit'));
 
@@ -495,121 +495,121 @@
             carregarCategorias();
 
             // Configurar botão novo livro
-            $("#btnNovoLivro").click(function() {
+            $("#btnNovoLivro").click(function () {
                 // Limpar o formulário
                 $("#formCreateLivro")[0].reset();
-            // Mostrar modal
-            modalCreate.show();
+                // Mostrar modal
+                modalCreate.show();
             });
 
             // Configurar botão salvar novo livro
-            $("#btnSalvarNovoLivro").click(function() {
+            $("#btnSalvarNovoLivro").click(function () {
                 salvarNovoLivro();
             });
 
             // Configurar botão editar a partir do modal de detalhes
-            $("#btnEditarDoDetails").click(function() {
+            $("#btnEditarDoDetails").click(function () {
                 // Ocultar modal de detalhes
                 modalDetails.hide();
-            // Mostrar modal de edição com o mesmo ID
-            var id = $("#detailsIdHidden").val();
-            mostrarEdicao(id);
+                // Mostrar modal de edição com o mesmo ID
+                var id = $("#detailsIdHidden").val();
+                mostrarEdicao(id);
             });
 
             // Configurar botão salvar edição
-            $("#btnSalvarEdicaoLivro").click(function() {
+            $("#btnSalvarEdicaoLivro").click(function () {
                 salvarEdicaoLivro();
             });
         });
 
-            // Função para carregar autores nos dropdowns
-            function carregarAutores() {
-                $.ajax({
-                    url: "/api/autores",
-                    type: "GET",
-                    success: function (data) {
-                        var options = '<option value="">Selecione o autor...</option>';
-                        $.each(data, function (i, autor) {
-                            options += `<option value="${autor.id}">${autor.nome}</option>`;
-                        });
-                        $("#AutorId, #editAutorId").html(options);
-                    },
-                    error: function (error) {
-                        console.error("Erro ao carregar autores:", error);
-                    }
-                });
+        // Função para carregar autores nos dropdowns
+        function carregarAutores() {
+            $.ajax({
+                url: "/api/autores",
+                type: "GET",
+                success: function (data) {
+                    var options = '<option value="">Selecione o autor...</option>';
+                    $.each(data, function (i, autor) {
+                        options += `<option value="${autor.id}">${autor.nome}</option>`;
+                    });
+                    $("#AutorId, #editAutorId").html(options);
+                },
+                error: function (error) {
+                    console.error("Erro ao carregar autores:", error);
+                }
+            });
         }
 
-            // Função para carregar categorias nos dropdowns
-            function carregarCategorias() {
-                $.ajax({
-                    url: "/api/categorias",
-                    type: "GET",
-                    success: function (data) {
-                        var options = '<option value="">Selecione a categoria...</option>';
-                        $.each(data, function (i, categoria) {
-                            options += `<option value="${categoria.id}">${categoria.nome}</option>`;
-                        });
-                        $("#CategoriaId, #editCategoriaId").html(options);
-                    },
-                    error: function (error) {
-                        console.error("Erro ao carregar categorias:", error);
-                    }
-                });
+        // Função para carregar categorias nos dropdowns
+        function carregarCategorias() {
+            $.ajax({
+                url: "/api/categorias",
+                type: "GET",
+                success: function (data) {
+                    var options = '<option value="">Selecione a categoria...</option>';
+                    $.each(data, function (i, categoria) {
+                        options += `<option value="${categoria.id}">${categoria.nome}</option>`;
+                    });
+                    $("#CategoriaId, #editCategoriaId").html(options);
+                },
+                error: function (error) {
+                    console.error("Erro ao carregar categorias:", error);
+                }
+            });
         }
 
-            // Função para mostrar detalhes do livro
-            function mostrarDetalhes(id) {
-                $.ajax({
-                    url: "/api/livros/" + id,
-                    type: "GET",
-                    success: function (livro) {
-                        $("#detailsTitulo").text(livro.titulo);
-                        $("#detailsAutor").text(livro.autor);
-                        $("#detailsCategoria").text(livro.categoria);
-                        $("#detailsAnoPublicacao").text(livro.anoPublicacao);
+        // Função para mostrar detalhes do livro
+        function mostrarDetalhes(id) {
+            $.ajax({
+                url: "/api/livros/" + id,
+                type: "GET",
+                success: function (livro) {
+                    $("#detailsTitulo").text(livro.titulo);
+                    $("#detailsAutor").text(livro.autor);
+                    $("#detailsCategoria").text(livro.categoria);
+                    $("#detailsAnoPublicacao").text(livro.anoPublicacao);
 
-                        var disponibilidade = livro.disponivel ?
-                            '<span class="badge bg-success">Sim</span>' :
-                            '<span class="badge bg-danger">Não</span>';
-                        $("#detailsDisponivel").html(disponibilidade);
+                    var disponibilidade = livro.disponivel ?
+                        '<span class="badge bg-success">Sim</span>' :
+                        '<span class="badge bg-danger">Não</span>';
+                    $("#detailsDisponivel").html(disponibilidade);
 
-                        // Guardar ID para uso posterior
-                        $("#detailsIdHidden").val(livro.id);
+                    // Guardar ID para uso posterior
+                    $("#detailsIdHidden").val(livro.id);
 
-                        modalDetails.show();
-                    },
-                    error: function (error) {
-                        console.error("Erro ao carregar detalhes do livro:", error);
-                        alert("Erro ao carregar detalhes do livro");
-                    }
-                });
+                    modalDetails.show();
+                },
+                error: function (error) {
+                    console.error("Erro ao carregar detalhes do livro:", error);
+                    alert("Erro ao carregar detalhes do livro");
+                }
+            });
         }
 
-            // Função para mostrar formulário de edição
-            function mostrarEdicao(id) {
-                $.ajax({
-                    url: "/api/livros/" + id,
-                    type: "GET",
-                    success: function (livro) {
-                        $("#editId").val(livro.id);
-                        $("#editTitulo").val(livro.titulo);
-                        $("#editAutorId").val(livro.autorId);
-                        $("#editCategoriaId").val(livro.categoriaId);
-                        $("#editAnoPublicacao").val(livro.anoPublicacao);
-                        $("#editDisponivel").prop("checked", livro.disponivel);
+        // Função para mostrar formulário de edição
+        function mostrarEdicao(id) {
+            $.ajax({
+                url: "/api/livros/" + id,
+                type: "GET",
+                success: function (livro) {
+                    $("#editId").val(livro.id);
+                    $("#editTitulo").val(livro.titulo);
+                    $("#editAutorId").val(livro.autorId);
+                    $("#editCategoriaId").val(livro.categoriaId);
+                    $("#editAnoPublicacao").val(livro.anoPublicacao);
+                    $("#editDisponivel").prop("checked", livro.disponivel);
 
-                        modalEdit.show();
-                    },
-                    error: function (error) {
-                        console.error("Erro ao carregar dados do livro:", error);
-                        alert("Erro ao carregar dados do livro");
-                    }
-                });
+                    modalEdit.show();
+                },
+                error: function (error) {
+                    console.error("Erro ao carregar dados do livro:", error);
+                    alert("Erro ao carregar dados do livro");
+                }
+            });
         }
 
-           // Função para salvar novo livro
-           function salvarNovoLivro() {
+        // Função para salvar novo livro
+        function salvarNovoLivro() {
             // Validar formulário
             if (!$("#formCreateLivro")[0].checkValidity()) {
                 $("#formCreateLivro")[0].reportValidity();
@@ -648,54 +648,54 @@
             });
         }
 
-            // Função para salvar edição de livro
-            function salvarEdicaoLivro() {
+        // Função para salvar edição de livro
+        function salvarEdicaoLivro() {
             // Validar formulário
             if (!$("#formEditLivro")[0].checkValidity()) {
                 $("#formEditLivro")[0].reportValidity();
-            return;
+                return;
             }
 
             var id = $("#editId").val();
             var livroData = {
                 Id: id,
-            Titulo: $("#editTitulo").val(),
-            AutorId: $("#editAutorId").val(),
-            CategoriaId: $("#editCategoriaId").val(),
-            AnoPublicacao: $("#editAnoPublicacao").val(),
-            Disponivel: $("#editDisponivel").is(":checked")
+                Titulo: $("#editTitulo").val(),
+                AutorId: $("#editAutorId").val(),
+                CategoriaId: $("#editCategoriaId").val(),
+                AnoPublicacao: $("#editAnoPublicacao").val(),
+                Disponivel: $("#editDisponivel").is(":checked")
             };
 
             $.ajax({
                 url: "/api/livros/" + id,
-            type: "PUT",
-            contentType: "application/json",
-            data: JSON.stringify(livroData),
-            success: function() {
-                modalEdit.hide();
-            buscarLivros(); // Atualizar a tabela
-            alert("Livro atualizado com sucesso!");
+                type: "PUT",
+                contentType: "application/json",
+                data: JSON.stringify(livroData),
+                success: function () {
+                    modalEdit.hide();
+                    buscarLivros(); // Atualizar a tabela
+                    alert("Livro atualizado com sucesso!");
                 },
-            error: function(error) {
-                console.error("Erro ao atualizar livro:", error);
+                error: function (error) {
+                    console.error("Erro ao atualizar livro:", error);
 
-            // Mostrar erros de validação se houver
-            if (error.responseJSON && error.responseJSON.ModelState) {
+                    // Mostrar erros de validação se houver
+                    if (error.responseJSON && error.responseJSON.ModelState) {
                         var erros = error.responseJSON.ModelState;
-            $.each(erros, function(key, value) {
-                $(`[data-valmsg-for="${key}"]`).text(value[0]);
+                        $.each(erros, function (key, value) {
+                            $(`[data-valmsg-for="${key}"]`).text(value[0]);
                         });
                     } else {
-                alert("Erro ao atualizar livro");
+                        alert("Erro ao atualizar livro");
                     }
                 }
             });
         }
 
-            // Adicionar função para tratar erros AJAX de forma centralizada
-            $(document).ajaxError(function(event, jqxhr, settings, thrownError) {
-                console.error("Erro AJAX global:", thrownError);
+        // Adicionar função para tratar erros AJAX de forma centralizada
+        $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
+            console.error("Erro AJAX global:", thrownError);
         });
-   
+
     </script>
 }

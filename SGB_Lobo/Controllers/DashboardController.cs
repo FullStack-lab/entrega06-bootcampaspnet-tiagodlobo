@@ -1,14 +1,23 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
+using SGB_Lobo.AutoMapper;
 using SGB_Lobo.Models.Context;
 using SGB_Lobo.Models.ViewModels;
 using System.Data.Entity;
+using System.Collections.Generic;
 
 namespace SGB_Lobo.Controllers
 {
     public class DashboardController : Controller
     {
         private BibliotecaContext db = new BibliotecaContext();
+        private readonly IMapper _mapper;
+
+        public DashboardController()
+        {
+            _mapper = MapperConfig.Mapper;
+        }
 
         public ActionResult Index()
         {
@@ -22,7 +31,7 @@ namespace SGB_Lobo.Controllers
                 && e.DataPrevistaDevolucao < System.DateTime.Now);
 
             // Livros mais emprestados (top 5)
-            ViewBag.LivrosMaisEmprestados = db.Livros
+            var livrosMaisEmprestados = db.Livros
                 .Include(l => l.Emprestimos)
                 .Select(l => new LivroMaisEmprestadoViewModel
                 {
@@ -34,7 +43,7 @@ namespace SGB_Lobo.Controllers
                 .ToList();
 
             // Usuários com mais empréstimos (top 5)
-            ViewBag.UsuariosMaisAtivos = db.Usuarios
+            var usuariosMaisAtivos = db.Usuarios
                 .Select(u => new UsuarioMaisAtivoViewModel
                 {
                     Nome = u.Nome,
@@ -45,7 +54,7 @@ namespace SGB_Lobo.Controllers
                 .ToList();
 
             // Total de livros por categoria
-            ViewBag.LivrosPorCategoria = db.Categorias
+            var livrosPorCategoria = db.Categorias
                 .Select(c => new LivroPorCategoriaViewModel
                 {
                     Nome = c.Nome,
@@ -53,6 +62,10 @@ namespace SGB_Lobo.Controllers
                 })
                 .OrderByDescending(c => c.QuantidadeLivros)
                 .ToList();
+
+            ViewBag.LivrosMaisEmprestados = livrosMaisEmprestados;
+            ViewBag.UsuariosMaisAtivos = usuariosMaisAtivos;
+            ViewBag.LivrosPorCategoria = livrosPorCategoria;
 
             return View();
         }

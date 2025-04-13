@@ -5,8 +5,11 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
+using AutoMapper;
+using SGB_Lobo.AutoMapper;
 using SGB_Lobo.Models;
 using SGB_Lobo.Models.Context;
+using SGB_Lobo.Models.ViewModels;
 
 namespace SGB_Lobo.Controllers
 {
@@ -14,17 +17,22 @@ namespace SGB_Lobo.Controllers
     public class AutoresApiController : ApiController
     {
         private BibliotecaContext db = new BibliotecaContext();
+        private readonly IMapper _mapper;
+
+        public AutoresApiController()
+        {
+            _mapper = MapperConfig.Mapper;
+        }
 
         // GET: api/autores
         [HttpGet]
         [Route("")]
         public IHttpActionResult GetAutores()
         {
-            var autores = db.Autores
-                .Select(a => new { id = a.Id, nome = a.Nome })
-                .ToList();
+            var autores = db.Autores.ToList();
+            var autoresViewModel = _mapper.Map<List<AutorViewModel>>(autores);
 
-            return Ok(autores);
+            return Ok(autoresViewModel);
         }
 
         // GET: api/autores/5
@@ -38,20 +46,19 @@ namespace SGB_Lobo.Controllers
                 return NotFound();
             }
 
-            var resultado = new
-            {
-                id = autor.Id,
-                nome = autor.Nome,
-                qtdLivros = db.Livros.Count(l => l.AutorId == id)
-            };
+            // Carregar a quantidade de livros
+            var qtdLivros = db.Livros.Count(l => l.AutorId == id);
 
-            return Ok(resultado);
+            var autorViewModel = _mapper.Map<AutorViewModel>(autor);
+            autorViewModel.QuantidadeLivros = qtdLivros;
+
+            return Ok(autorViewModel);
         }
 
         // POST: api/autores
         [HttpPost]
         [Route("")]
-        public IHttpActionResult PostAutor(Autor autor)
+        public IHttpActionResult PostAutor(AutorViewModel autorViewModel)
         {
             try
             {
@@ -60,18 +67,15 @@ namespace SGB_Lobo.Controllers
                     return BadRequest(ModelState);
                 }
 
+                var autor = _mapper.Map<Autor>(autorViewModel);
                 db.Autores.Add(autor);
                 db.SaveChanges();
 
-                // Retorne apenas um OK com os dados necessários
                 return Ok(new { id = autor.Id });
             }
             catch (Exception ex)
             {
-                // Log do erro completo
                 System.Diagnostics.Debug.WriteLine("Erro ao cadastrar autor: " + ex.ToString());
-
-                // Retorne uma mensagem genérica para o cliente
                 return ResponseMessage(new System.Net.Http.HttpResponseMessage(HttpStatusCode.InternalServerError)
                 {
                     Content = new System.Net.Http.StringContent("Erro ao processar a requisição.")
@@ -82,18 +86,19 @@ namespace SGB_Lobo.Controllers
         // PUT: api/autores/5
         [HttpPut]
         [Route("{id:int}")]
-        public IHttpActionResult PutAutor(int id, Autor autor)
+        public IHttpActionResult PutAutor(int id, AutorViewModel autorViewModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != autor.Id)
+            if (id != autorViewModel.Id)
             {
                 return BadRequest("O ID fornecido não corresponde ao autor");
             }
 
+            var autor = _mapper.Map<Autor>(autorViewModel);
             db.Entry(autor).State = EntityState.Modified;
 
             try

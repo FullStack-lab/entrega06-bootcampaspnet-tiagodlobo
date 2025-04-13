@@ -32,5 +32,8 @@ namespace SGB_Lobo.Models.ViewModels
         // Propriedades adicionais para exibição
         public string AutorNome { get; set; }
         public string CategoriaNome { get; set; }
+
+        public AutorViewModel Autor { get; set; }
+        public CategoriaViewModel Categoria { get; set; }
     }
 }

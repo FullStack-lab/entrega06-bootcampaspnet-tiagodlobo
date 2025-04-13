@@ -5,14 +5,23 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using AutoMapper;
+using SGB_Lobo.AutoMapper;
 using SGB_Lobo.Models;
 using SGB_Lobo.Models.Context;
+using SGB_Lobo.Models.ViewModels;
 
 namespace SGB_Lobo.Controllers
 {
     public class LivrosController : Controller
     {
         private BibliotecaContext db = new BibliotecaContext();
+        private readonly IMapper _mapper;
+
+        public LivrosController()
+        {
+            _mapper = MapperConfig.Mapper;
+        }
 
         // GET: Livros
         public ActionResult Index(string searchString, string categoria, string disponibilidade)
@@ -50,8 +59,11 @@ namespace SGB_Lobo.Controllers
             // Preparar ViewBags para os dropdowns
             ViewBag.Categorias = new SelectList(db.Categorias, "Id", "Nome");
 
+            // Usar AutoMapper para converter para ViewModel
+            var livrosViewModel = _mapper.Map<List<LivroViewModel>>(livros.ToList());
+
             // Retornar a view com os resultados filtrados
-            return View(livros.ToList());
+            return View(livrosViewModel);
         }
 
         // GET: livros/disponiveis
@@ -63,8 +75,9 @@ namespace SGB_Lobo.Controllers
                 .Where(l => l.Disponivel)
                 .ToList();
 
+            var livrosViewModel = _mapper.Map<List<LivroViewModel>>(livros);
             ViewBag.FiltroAtual = "Livros Disponíveis";
-            return View("Index", livros);
+            return View("Index", livrosViewModel);
         }
 
         // GET: livros/categoria/{categoria}
@@ -76,8 +89,9 @@ namespace SGB_Lobo.Controllers
                 .Where(l => l.Categoria.Nome.ToLower() == categoria.ToLower())
                 .ToList();
 
+            var livrosViewModel = _mapper.Map<List<LivroViewModel>>(livros);
             ViewBag.FiltroAtual = $"Categoria: {categoria}";
-            return View("Index", livros);
+            return View("Index", livrosViewModel);
         }
 
         // GET: livros/busca/{termo}
@@ -91,8 +105,9 @@ namespace SGB_Lobo.Controllers
                             l.Categoria.Nome.Contains(termo))
                 .ToList();
 
+            var livrosViewModel = _mapper.Map<List<LivroViewModel>>(livros);
             ViewBag.FiltroAtual = $"Busca por: {termo}";
-            return View("Index", livros);
+            return View("Index", livrosViewModel);
         }
 
         // GET: Livros/Details/{id}
@@ -109,7 +124,8 @@ namespace SGB_Lobo.Controllers
             if (livro == null)
                 return HttpNotFound();
 
-            return View(livro);
+            var livroViewModel = _mapper.Map<LivroViewModel>(livro);
+            return View(livroViewModel);
         }
 
         // GET: Livros/Create
@@ -123,18 +139,21 @@ namespace SGB_Lobo.Controllers
         // POST: Livros/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Livro livro)
+        public ActionResult Create(LivroViewModel livroViewModel)
         {
             if (ModelState.IsValid)
             {
+                // Converter de ViewModel para Entidade
+                var livro = _mapper.Map<Livro>(livroViewModel);
+
                 db.Livros.Add(livro);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.AutorId = new SelectList(db.Autores, "Id", "Nome", livro.AutorId);
-            ViewBag.CategoriaId = new SelectList(db.Categorias, "Id", "Nome", livro.CategoriaId);
-            return View(livro);
+            ViewBag.AutorId = new SelectList(db.Autores, "Id", "Nome", livroViewModel.AutorId);
+            ViewBag.CategoriaId = new SelectList(db.Categorias, "Id", "Nome", livroViewModel.CategoriaId);
+            return View(livroViewModel);
         }
 
         // GET: Livros/Edit/{id}
@@ -148,26 +167,32 @@ namespace SGB_Lobo.Controllers
             if (livro == null)
                 return HttpNotFound();
 
-            ViewBag.AutorId = new SelectList(db.Autores, "Id", "Nome", livro.AutorId);
-            ViewBag.CategoriaId = new SelectList(db.Categorias, "Id", "Nome", livro.CategoriaId);
-            return View(livro);
+            // Converter para ViewModel
+            var livroViewModel = _mapper.Map<LivroViewModel>(livro);
+
+            ViewBag.AutorId = new SelectList(db.Autores, "Id", "Nome", livroViewModel.AutorId);
+            ViewBag.CategoriaId = new SelectList(db.Categorias, "Id", "Nome", livroViewModel.CategoriaId);
+            return View(livroViewModel);
         }
 
         // POST: Livros/Edit/{id}
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Livro livro)
+        public ActionResult Edit(LivroViewModel livroViewModel)
         {
             if (ModelState.IsValid)
             {
+                // Converter de ViewModel para Entidade
+                var livro = _mapper.Map<Livro>(livroViewModel);
+
                 db.Entry(livro).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.AutorId = new SelectList(db.Autores, "Id", "Nome", livro.AutorId);
-            ViewBag.CategoriaId = new SelectList(db.Categorias, "Id", "Nome", livro.CategoriaId);
-            return View(livro);
+            ViewBag.AutorId = new SelectList(db.Autores, "Id", "Nome", livroViewModel.AutorId);
+            ViewBag.CategoriaId = new SelectList(db.Categorias, "Id", "Nome", livroViewModel.CategoriaId);
+            return View(livroViewModel);
         }
 
         // GET: Livros/Delete/{id}
@@ -184,7 +209,10 @@ namespace SGB_Lobo.Controllers
             if (livro == null)
                 return HttpNotFound();
 
-            return View(livro);
+            // Converter para ViewModel
+            var livroViewModel = _mapper.Map<LivroViewModel>(livro);
+
+            return View(livroViewModel);
         }
 
         // POST: Livros/Delete/{id}
