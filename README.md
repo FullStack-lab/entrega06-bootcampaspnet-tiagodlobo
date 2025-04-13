@@ -61,10 +61,10 @@ Os candidatos que implementarem os itens abaixo poderão receber pontos extras:
 
 ## Checklist de Desenvolvimento
 
-- [ ] ViewModels criadas e utilizadas nas Views.
-- [ ] Controllers refatorados para usar AutoMapper.
-- [ ] Arquivo de configuração do AutoMapper criado e funcionando.
-- [ ] Script .sql atualizado na pasta `/Database`.
-- [ ] Estrutura do banco de dados normalizada.
-- [ ] Migrações aplicadas e funcionando.
+- [x] ViewModels criadas e utilizadas nas Views.
+- [x] Controllers refatorados para usar AutoMapper.
+- [x] Arquivo de configuração do AutoMapper criado e funcionando.
+- [x] Script .sql atualizado na pasta `/Database`.
+- [x] Estrutura do banco de dados normalizada.
+- [x] Migrações aplicadas e funcionando.
 
